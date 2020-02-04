@@ -1,0 +1,19 @@
+{
+  "name": "travellite",
+  "version": "1.0.0",
+  "description": "Software ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smit-1999/Travellite.git"
+  },
+  "author": "smit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smit-1999/Travellite/issues"
+  },
+  "homepage": "https://github.com/smit-1999/Travellite#readme"
+}
