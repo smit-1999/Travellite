@@ -1,24 +1,20 @@
-.App {
-  text-align: center;
+.remove-btn{
+  margin-right: 0.5rem;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.fade-enter{
+  opacity: 0.01;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.fade-enter-active{
+  opacity: 1;
+  transition: opacity 1000 ms ease-in;
 }
 
-.App-intro {
-  font-size: large;
+.fade-exit{
+  opacity: 1;
 }
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.fade-exit-active{
+  opacity: 0.01;
+  transition: opacity 1000ms ease-in;
 }
