@@ -10,10 +10,10 @@ import {
   FormGroup
 } from "reactstrap";
 import { Label, Input, FormText } from "reactstrap";
-import FormPopUp from "./FormPopUp.js";
 
-class AddPost extends Component {
-  renderForm() {
+class FormPopUp extends Component {
+  render() {
+    console.log("Butoon");
     return (
       <div>
         <Form>
@@ -30,22 +30,5 @@ class AddPost extends Component {
       </div>
     );
   }
-
-  render() {
-    return (
-      <Container>
-        <Button
-          className="AddButton"
-          color="primary"
-          onClick={() => {
-            this.renderForm();
-          }}
-        >
-          +
-        </Button>
-      </Container>
-    );
-  }
 }
-
-export default AddPost;
+export default FormPopUp;
