@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const home = require('./routes/home');
+const user = require('./routes/user.controller');
 
 
 const app=express();
@@ -17,7 +17,7 @@ mongoose.connect(db, { useNewUrlParser : true, useUnifiedTopology: true}).then((
 .catch(err => console.log(err));
 
 //use routes
-app.use('/api/home', home);
+app.use('/user', user);
 
 const port = process.env.PORT | 4000;
 
