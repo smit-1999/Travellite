@@ -18,7 +18,7 @@ class SearchPage extends Component {
 
   render() {
     return (
-      <div></div>
+      <div>Subscribe to smit</div>
     );
   }
 }
