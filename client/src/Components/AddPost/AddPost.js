@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./AddPost.css";
+import Modal from "react-modal";
 import {
   Container,
   List,
@@ -9,41 +9,44 @@ import {
   Form,
   FormGroup
 } from "reactstrap";
-import { Label, Input, FormText } from "reactstrap";
-import FormPopUp from "./FormPopUp.js";
+import FormPopUp from "./FormPopUp";
 
 class AddPost extends Component {
-  renderForm() {
-    return (
-      <div>
-        <Form>
-          <FormGroup>
-            <Label for="exampleEmail">Email</Label>
-            <Input
-              type="email"
-              name="email"
-              id="exampleEmail"
-              placeholder="with a placeholder"
-            />
-          </FormGroup>
-        </Form>
-      </div>
-    );
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalIsOpen: false
+    };
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
-
+  openModal() {
+    this.setState({ modalIsOpen: true });
+  }
+  closeModal() {
+    this.setState({ modalIsOpen: false });
+  }
   render() {
     return (
-      <Container>
+      <div>
         <Button
-          className="AddButton"
-          color="primary"
-          onClick={() => {
-            this.renderForm();
-          }}
+          className="remove-btn"
+          color="danger"
+          size="sm"
+          onClick={this.openModal}
         >
           +
         </Button>
-      </Container>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          contentLabel="Example Modal"
+        >
+          <button onClick={this.closeModal}>close</button>
+          <FormPopUp />
+        </Modal>
+      </div>
     );
   }
 }

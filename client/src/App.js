@@ -8,13 +8,15 @@ import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Profile from "./Components/Profile";
 import Account from "./Components/Account";
-import AddPost from "./Components/AddPost";
 import { Navbar } from "reactstrap";
+import AddPost from "./Components/AddPost/AddPost";
+
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Navigation_bar />
+        <AddPost />
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />

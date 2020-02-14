@@ -50,8 +50,6 @@ class Navigation_bar extends Component {
                 alt="Notification bell"
               />
 
-              <pre class="tab"> </pre>
-
               <Dropdown>
                 <Dropdown.Toggle
                   color="dark"
