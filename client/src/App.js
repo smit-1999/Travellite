@@ -17,6 +17,7 @@ function App() {
       <div className="App">
         <Navigation_bar />
         <AddPost />
+        <Register/>
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
