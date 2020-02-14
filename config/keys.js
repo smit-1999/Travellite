@@ -1,3 +1,3 @@
 module.exports = {
-    mongoURI: 'mongodb://localhost:27017/travelite'
+    mongoURI: 'mongodb+srv://user:smitshah@cluster0-slqvc.mongodb.net/Travellite?retryWrites=true&w=majority'
 }

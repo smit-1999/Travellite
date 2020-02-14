@@ -8,11 +8,31 @@ router.get('/',(req, res) => {
     User.find().then(users => res.json(users));
 });
 
-router.post('/',(req, res) => {
-    const user = new  User(
+router.post('/add',(req, res) => {
+    const newUser = new  User(
         req.body
     );
-    user.save().then(users => res.json(users));
+    console.log(newUser)
+    console.log(req.body);
+    User.create(req.body, function(err, instance) {
+        res_object = {
+            'status': '',
+            'message': '',
+        }
+        if(err) {
+            res_object['status'] = 'failure'
+            res_object['message'] = 'database error'
+            console.log(res_data['status'] + ' ' + res_object['message']);
+            console.log(err);
+            return res.json(res_object);
+        }
+        else{
+            res_object['status'] = 'success'
+            res_object['message'] = 'User added to the database';
+            console.log(res_object);
+            return res.json(res_object)                            
+        }
+    });
 });
 
 router.post('/authentication', authentication);
