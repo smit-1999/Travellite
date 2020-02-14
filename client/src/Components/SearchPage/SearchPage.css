@@ -1,7 +1,52 @@
-/*
- * SearchPage css File
-*/
-
 .SearchPage {
-    /* propertys here */
+  /* propertys here */
+}
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  width: 1500px;
+  margin: 150px;
+  text-align: center;
+  margin-top: 50px;
+  line-height: 55px;
+  /*border-radius: 1em;*/
+}
+/*.Panel {
+  /*height: 100px;
+  display: flex;
+  justify-content: space-between;
+  background-color: DodgerBlue;
+  /*background-color: rgb(125, 201, 211);
+}*/
+.sourceSelect {
+  width: 300px;
+  margin: 15px;
+
+  /*margin-left: 100px;*/
+  /*box-sizing: border-box;*/
+}
+
+.destSelect {
+  width: 300px;
+  margin: auto;
+  /* margin-top: -80px;
+  margin-left: 500px;
+  /*box-sizing: border-box;*/
+}
+.Search {
+  /* position: absolute;*/
+  width: 200px;
+  margin: auto;
+  /* margin: -40px 0px 0px 1300px; /*t r d l*/
+  background-color: rgb(17, 221, 17);
+  /*box-sizing: border-box;*/
+}
+.dateSelect {
+  /*position: absolute;*/
+  width: 300px;
+  background-color: whitesmoke;
+  margin: auto;
+  /*margin: -40px 0 0 900px;*/
+  /*box-sizing: border-box;*/
 }

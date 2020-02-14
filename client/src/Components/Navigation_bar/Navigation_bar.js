@@ -38,7 +38,7 @@ class Navigation_bar extends Component {
       <div>
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
-            <NavbarBrand href="/">Travellit</NavbarBrand>
+            <NavbarBrand href="/">Travellite</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar></Nav>
@@ -49,7 +49,6 @@ class Navigation_bar extends Component {
                 className="d-inline-block align-top"
                 alt="Notification bell"
               />
-
               <Dropdown>
                 <Dropdown.Toggle
                   color="dark"
