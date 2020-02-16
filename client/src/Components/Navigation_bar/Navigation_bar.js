@@ -42,26 +42,32 @@ class Navigation_bar extends Component {
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar></Nav>
-              <img
-                src={bell}
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-                alt="Notification bell"
-              />
-              <Dropdown>
-                <Dropdown.Toggle
-                  color="dark"
-                  variant="success"
-                  id="dropdown-basic"
-                ></Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="/profile">Profile</Dropdown.Item>
-                  <Dropdown.Item href="/account">My Account</Dropdown.Item>
-                  <Dropdown.Divider></Dropdown.Divider>
-                  <Dropdown.Item href="/login">Logout</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+              <div>
+                <img
+                  src={bell}
+                  width="30"
+                  height="30"
+                  className="notifLogo"
+                  hspace="50"
+                  // className="d-inline-block align-top"
+                  alt="Notification bell"
+                />
+              </div>
+              <div>
+                <Dropdown className="dropDown">
+                  <Dropdown.Toggle
+                    color="dark"
+                    variant="success"
+                    id="dropdown-basic"
+                  ></Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item href="/profile">Profile</Dropdown.Item>
+                    <Dropdown.Item href="/account">My Account</Dropdown.Item>
+                    <Dropdown.Divider></Dropdown.Divider>
+                    <Dropdown.Item href="/login">Logout</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
             </Collapse>
           </Container>
         </Navbar>

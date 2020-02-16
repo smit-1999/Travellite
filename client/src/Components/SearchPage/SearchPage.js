@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Select from "react-select";
 import DatePicker from "react-date-picker";
 import "./SearchPage.css";
+import TimePicker from "react-time-picker";
 
 var moment = require("moment");
 
@@ -16,26 +17,31 @@ class SearchPage extends Component {
     this.state = {
       date: new Date(),
       source: null,
-      destination: null
+      destination: null,
+      time: "10:00"
     };
   }
   submitRequest = () => {
-    //TODO:source & dest not same
-    //TODO:historical date NA
-    const today = moment(this.state.date).format("DD MMM, YYYY");
+    const today = new Date().setHours(0, 0, 0, 0);
     console.log("today is", today);
-    if (this.state.source === null && this.state.destination === null) {
+    let dateSelected;
+
+    if (this.state.date === null) alert("Please enter date");
+    else if (this.state.source === null && this.state.destination === null) {
       alert("Enter destination and source!");
     } else if (this.state.source === this.state.destination) {
       alert("Same source and destination.");
-    } else if (this.state.date < new Date()) {
+    } else if (this.state.date.setHours(0, 0, 0, 0) < today) {
       alert("Enter valid date");
     }
     //console.log(this.state);
+    
+  
   };
   onChange = date => {
     this.setState({ date });
   };
+  onChangetime = time => this.setState({ time });
   render() {
     return (
       <div className="Panel" class="flex-container">
