@@ -5,11 +5,18 @@ const router = express.Router();
 const Post = require("../models/post.model");
 
 router.get("/", (req, res) => {
-  Post.find().then(posts => res.json(posts));
+
+  Post.find(req.query).then(posts => {
+    console.log("request to router:", req.query);
+    console.log("Resp to search query :", posts);
+    return res.json(posts);
+  });
+
 });
 
 router.post("/add", (req, res) => {
   const newPost = new Post(req.body);
+
   console.log(newPost);
   console.log(req.body);
   newPost.save(function(err, instance) {
@@ -30,6 +37,7 @@ router.post("/add", (req, res) => {
       res.json(res_object);
     }
   });
+
 });
 
 module.exports = router;
