@@ -13,17 +13,12 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-date-picker";
 import Select from "react-select";
+import axios from "axios";
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" }
-];
 const items = [
-  { value: "A", label: "A" },
-  { value: "B", label: "B" },
-  { value: "C", label: "C" },
-  { value: "D", label: "D" }
+  { value: "airport", label: "Airport" },
+  { value: "secunderabad", label: "Secunderabad" },
+  { value: "campus", label: "BPHC" }
 ];
 const time = [
   { value: "1-2", label: "1-2" },
@@ -37,14 +32,21 @@ const noOfPeople = [
   { value: "3", label: "3" },
   { value: "4", label: "4" }
 ];
+const d = new Date();
 class FormPopUp extends Component {
-  state = {
-    startLocation: { value: null, label: "Enter Start Location" },
-    endLocation: { value: null, label: "Enter End Location" },
-    date: new Date(),
-    timeSlot: { value: null, label: "Enter Time Slot" },
-    people: { value: null, label: "Enter Number of People" }
-  };
+  constructor() {
+    super();
+    this.state = {
+      postOwner: "Admin",
+      members: ["Admin"],
+      // startLocation: { value: null, label: "Enter Start Location" },
+      startLocation: "",
+      endLocation: "",
+      date: new Date(),
+      timeSlot: "",
+      people: ""
+    };
+  }
 
   render() {
     // console.log(startLocation);
@@ -54,26 +56,24 @@ class FormPopUp extends Component {
           <label htmlFor="Start location">Start location</label>
           <Select
             options={items}
+            defaultValue={{ label: "Start Location..." }}
             onChange={start => {
-              this.setState({ startLocation: start }, () =>
-                console.log(this.state.startLocation.value)
+              this.setState({ startLocation: start.value }, () =>
+                console.log(this.state.startLocation)
               );
-              // console.log(startLocation);
             }}
-            value={this.state.startLocation}
           ></Select>
         </div>
         <div>
           <label htmlFor="End location">End location</label>
           <Select
             options={items}
+            defaultValue={{ label: "End Location..." }}
             onChange={end => {
-              this.setState({ endLocation: end }, () =>
-                console.log(this.state.endLocation.value)
+              this.setState({ endLocation: end.value }, () =>
+                console.log(this.state.endLocation)
               );
-              // console.log(startLocation);
             }}
-            value={this.state.endLocation}
           ></Select>
         </div>
         {/* <div>
@@ -91,7 +91,16 @@ class FormPopUp extends Component {
           <DatePicker
             className="dateselect"
             onChange={dat => {
-              this.setState({ date: dat }, () => console.log(this.state.date));
+              this.setState(
+                {
+                  date: new Date(
+                    dat.getFullYear(),
+                    dat.getMonth(),
+                    dat.getDate()
+                  )
+                },
+                () => console.log(this.state.date)
+              );
               // console.log(startLocation);
             }}
             value={this.state.date}
@@ -101,45 +110,52 @@ class FormPopUp extends Component {
           <label htmlFor="TimeSlot">Time Slot</label>
           <Select
             options={time}
+            defaultValue={{ label: "Time for travel..." }}
             onChange={time => {
-              this.setState({ timeSlot: time }, () =>
-                console.log(this.state.timeSlot.value)
+              this.setState({ timeSlot: time.value }, () =>
+                console.log(this.state.timeSlot)
               );
               // console.log(startLocation);
             }}
-            value={this.state.timeSlot}
           ></Select>
         </div>
         <div>
           <label htmlFor="people">Number of People</label>
           <Select
+            defaultValue={{ label: "Number of companions..." }}
             options={noOfPeople}
             onChange={peep => {
-              this.setState({ people: peep }, () =>
-                console.log(this.state.people.value)
+              this.setState({ people: peep.value }, () =>
+                console.log(this.state.people)
               );
               // console.log(startLocation);
             }}
-            value={this.state.people}
           ></Select>
         </div>
         <Button
           onClick={() => {
-            if (this.state.startLocation.value === null)
+            if (this.state.startLocation === null)
               alert("Start Location empty");
-            else if (this.state.endLocation.value === null)
+            else if (this.state.endLocation === null)
               alert("End Location empty");
             else if (this.state.date < new Date())
               alert("Date cannot be less than today ");
-            else if (this.state.timeSlot.value === null)
-              alert("Time Slot empty");
-            else if (this.state.people.value === null)
+            else if (this.state.timeSlot === null) alert("Time Slot empty");
+            else if (this.state.people === null)
               alert("You want to travel alone?");
-            else if (
-              this.state.startLocation.value === this.state.endLocation.value
-            )
+            else if (this.state.startLocation === this.state.endLocation)
               alert("Start and End location same");
-            else console.log(JSON.stringify(this.state));
+            else {
+              console.log(this.state);
+              axios
+                .post("http://localhost:4000/post/add", this.state)
+                .then(function(response) {
+                  console.log(response);
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            }
           }}
         >
           Submit
