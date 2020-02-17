@@ -20,12 +20,12 @@ class Register extends Component {
   handleClick(){
     console.log('Click happened');
    const data = {
-      firstname:"pranjal",
-      lastname:"gupta",
+      firstname:"shikhar",
+      lastname:"dhawale",
       email:"gmail",
       mob:"000",
-      username: "mnb",
-      password: "mnb"
+      username: "poiuyt",
+      password: "zxc"
   };
     axios.post('http://localhost:4000/user/add',data)
     .then(function (response) {
