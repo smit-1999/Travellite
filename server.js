@@ -10,7 +10,7 @@ const app = express();
 // app.use(cors({origin: true, credentials: true}));
 
 //DB config
-const uri = require("./config/keys").mongoURI;
+const uri = require("./config/keysheroku ").mongoURI;
 app.use(cors());
 
 app.use(bodyParser.json());
@@ -53,6 +53,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 const port = process.env.PORT | 4000;
-const host = process.env.YOUR_HOST || "0.0.0.0";
+//const host = process.env.YOUR_HOST || "0.0.0.0";
 
-app.listen(port, host, () => console.log("Server started on port " + port));
+app.listen(port, () => console.log("Server started on port " + port));
