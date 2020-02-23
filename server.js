@@ -12,6 +12,9 @@ const app = express();
 //DB config
 const uri = require("./config/keys").mongoURI;
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 //connect to mongo
 // mongoose.connect(uri, { useNewUrlParser : true, useUnifiedTopology: true}).then(() => console.log('Mongoose connected'))
 // .catch(err => console.log(err));
@@ -25,8 +28,7 @@ connection.once("open", () => {
   console.log("Mongoose connected");
 });
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+
 //use routes
 app.use("/user", user);
 app.use("/post", post);
