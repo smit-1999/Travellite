@@ -12,7 +12,7 @@ const app = express();
 //DB config
 const uri = require("./config/keys").mongoURI;
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(bodyParser.json());
 
 //connect to mongo
