@@ -1,3 +1,3 @@
 module.exports = {
-  base_uri: "https://tranquil-oasis-05127.herokuapp.com"
+  base_uri: "https://travellite-bphc.herokuapp.com"
 };
