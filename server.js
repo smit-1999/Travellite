@@ -6,9 +6,8 @@ const user = require("./routes/user.controller");
 const post = require("./routes/post.controller");
 const path = require("path");
 const app = express();
-app.use(cors());
+
 // app.use(cors({origin: true, credentials: true}));
-app.use(bodyParser.json());
 
 //DB config
 const uri = require("./config/keys").mongoURI;
@@ -25,7 +24,9 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("Mongoose connected");
 });
-
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 //use routes
 app.use("/user", user);
 app.use("/post", post);
