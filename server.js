@@ -11,7 +11,7 @@ const app = express();
 
 //DB config
 const uri = require("./config/keys").mongoURI;
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -27,7 +27,6 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("Mongoose connected");
 });
-app.use(cors());
 
 //use routes
 app.use("/user", user);
