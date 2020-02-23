@@ -46,9 +46,16 @@ app.use("/post", post);
 // });
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.resolve(__dirname, "client", "build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-    //res.redirect("https://google.com");
+  // app.get("*", (req, res) => {
+  //   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  //   //res.redirect("https://google.com");
+  // });
+  app.get("/", function(req, res) {
+    var todos = ["Hiii", "Byee", "Good night"];
+    console.log(todos);
+    console.log(req.user);
+    res.send({ todos: todos, user: req.user });
+    //res.render("index.ejs");
   });
 }
 const port = process.env.PORT | 4000;
