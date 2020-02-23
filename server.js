@@ -26,6 +26,8 @@ connection.once("open", () => {
   console.log("Mongoose connected");
 });
 
+console.log("Starting! ");
+
 //use routes
 app.use("/user", user);
 app.use("/post", post);
