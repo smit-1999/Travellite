@@ -14,11 +14,11 @@ import * as Yup from "yup";
 import DatePicker from "react-date-picker";
 import Select from "react-select";
 import axios from "axios";
-
+import keys from "../../config/keys";
 const items = [
-  { value: "airport", label: "Airport" },
-  { value: "secunderabad", label: "Secunderabad" },
-  { value: "campus", label: "BPHC" }
+  { value: "Airport", label: "Airport" },
+  { value: "Secunderabad", label: "Secunderabad" },
+  { value: "BPHC", label: "BPHC" }
 ];
 const time = [
   { value: "1-2", label: "1-2" },
@@ -33,6 +33,7 @@ const noOfPeople = [
   { value: "4", label: "4" }
 ];
 const d = new Date();
+const base_uri = keys.base_uri;
 class FormPopUp extends Component {
   constructor() {
     super();
@@ -148,7 +149,7 @@ class FormPopUp extends Component {
             else {
               console.log(this.state);
               axios
-                .post("http://localhost:4000/post/add", this.state)
+                .post(base_uri + "/post/add", this.state)
                 .then(function(response) {
                   console.log(response);
                 })

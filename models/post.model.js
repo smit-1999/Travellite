@@ -16,7 +16,7 @@ const post = new Schema({
     type: String
   },
   date: {
-    type: Date
+    type: Object
   },
   timeSlot: {
     type: String

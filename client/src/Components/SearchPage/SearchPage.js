@@ -3,13 +3,24 @@ import Select from "react-select";
 import DatePicker from "react-date-picker";
 import "./SearchPage.css";
 import TimePicker from "react-time-picker";
+import keys from "../../config/keys";
+
 import axios from "axios";
+import {
+  Alerts,
+  Button,
+  Col,
+  Row,
+  Jumbotron,
+  ListGroup
+} from "react-bootstrap";
 var moment = require("moment");
 
+const base_uri = keys.base_uri;
 const locationOptions = [
-  { value: "airport", label: "Airport" },
-  { value: "secunderabad", label: "Secunderabad" },
-  { value: "campus", label: "BPHC" }
+  { value: "Airport", label: "Airport" },
+  { value: "Secunderabad", label: "Secunderabad" },
+  { value: "BPHC", label: "BPHC" }
 ];
 class SearchPage extends Component {
   constructor() {
@@ -24,7 +35,6 @@ class SearchPage extends Component {
   }
   submitRequest = () => {
     const today = new Date().setHours(0, 0, 0, 0);
-    let dateSelected;
 
     if (this.state.date === null) alert("Please enter date");
     else if (this.state.source === null && this.state.destination === null) {
@@ -33,15 +43,16 @@ class SearchPage extends Component {
       alert("Same source and destination.");
     } else if (this.state.date.setHours(0, 0, 0, 0) < today) {
       alert("Enter valid date");
+    } else if (this.state.source === null) {
+      alert("");
     }
+
     const params = {
-      sourceLocation: this.state.source,
-      destinationLocation: this.state.destination
+      startLocation: this.state.source,
+      endLocation: this.state.destination
     };
-    console.log("Parameters psassed ", params);
-    //console.log(this.state);
     axios
-      .get("http://localhost:4000/post", { params })
+      .get(base_uri + "/post", { params })
       .then(response => {
         this.setState({
           posts: response.data
@@ -50,10 +61,14 @@ class SearchPage extends Component {
       })
       .catch(function(error) {
         console.log(error);
+        console.log(base_uri + "/post");
       });
   };
-  onChange = date => {
-    this.setState({ date });
+  onChange = date1 => {
+    console.log("Date before setting is ", this.state.date);
+    this.setState({ date: date1 });
+    console.log("Date selected in search box is", date1);
+    console.log("Date set in current state is ", this.state.date);
   };
   onChangetime = time => this.setState({ time });
   render() {
@@ -94,20 +109,32 @@ class SearchPage extends Component {
             Search
           </button>
         </div>
-        <div>
+        <ListGroup>
           {posts.map(post => {
-            const { _id, sourceLocation, destinationLocation, isFilled } = post;
-            // console.log(_id, sourceLocation, destinationLocation);
+            const { _id, startLocation, endLocation, isFilled, date } = post;
             return (
-              <div key={_id}>
-                <h2>{sourceLocation}</h2>
-                <p>{destinationLocation}</p>
-                <p>{isFilled}</p>
-                <hr />
-              </div>
+              <ListGroup.Item
+                className="float-left ml-5 mt-4 w-75 h-auto"
+                variant="primary"
+                key={_id}
+              >
+                <Row>
+                  <Col class="postSource">{startLocation} </Col>
+                  <Col class="postDestination">{endLocation}</Col>
+                  <Col class="postDate"> {date} </Col>
+
+                  <Button
+                    className="float-right mr-4 md-2"
+                    variant="primary"
+                    active
+                  >
+                    Join
+                  </Button>
+                </Row>
+              </ListGroup.Item>
             );
           })}
-        </div>
+        </ListGroup>
       </div>
     );
   }

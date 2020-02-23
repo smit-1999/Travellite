@@ -54,3 +54,10 @@
   background-color: whitesmoke;
   margin: auto;
 }
+
+.postSource {
+  font-size: 25pt;
+}
+.postDestination {
+  font-size: 5pt;
+}
