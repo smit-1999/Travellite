@@ -10,7 +10,7 @@ const app = express();
 // app.use(cors({origin: true, credentials: true}));
 
 //DB config
-const uri = require("./config/keysheroku ").MONGO_URI;
+const uri = require("./config/keys").MONGO_URI;
 app.use(cors());
 
 app.use(bodyParser.json());
