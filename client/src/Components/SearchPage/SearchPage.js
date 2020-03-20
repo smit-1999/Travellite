@@ -2,25 +2,14 @@ import React, { Component } from "react";
 import Select from "react-select";
 import DatePicker from "react-date-picker";
 import "./SearchPage.css";
-import TimePicker from "react-time-picker";
-import keys from "../../config/keys";
-
+import {Button, Jumbotron, ListGroup} from "react-bootstrap";
 import axios from "axios";
-import {
-  Alerts,
-  Button,
-  Col,
-  Row,
-  Jumbotron,
-  ListGroup
-} from "react-bootstrap";
-var moment = require("moment");
+//var moment = require("moment");
 
-const base_uri = keys.base_uri;
 const locationOptions = [
-  { value: "Airport", label: "Airport" },
-  { value: "Secunderabad", label: "Secunderabad" },
-  { value: "BPHC", label: "BPHC" }
+  { value: "airport", label: "Airport" },
+  { value: "secunderabad", label: "Secunderabad" },
+  { value: "campus", label: "BPHC" }
 ];
 class SearchPage extends Component {
   constructor() {
@@ -35,6 +24,7 @@ class SearchPage extends Component {
   }
   submitRequest = () => {
     const today = new Date().setHours(0, 0, 0, 0);
+    let dateSelected;
 
     if (this.state.date === null) alert("Please enter date");
     else if (this.state.source === null && this.state.destination === null) {
@@ -43,16 +33,15 @@ class SearchPage extends Component {
       alert("Same source and destination.");
     } else if (this.state.date.setHours(0, 0, 0, 0) < today) {
       alert("Enter valid date");
-    } else if (this.state.source === null) {
-      alert("");
     }
-
     const params = {
-      startLocation: this.state.source,
-      endLocation: this.state.destination
+      sourceLocation: this.state.source,
+      destinationLocation: this.state.destination
     };
+    console.log("Parameters psassed ", params);
+    //console.log(this.state);
     axios
-      .get(base_uri + "/post", { params })
+      .get("http://localhost:4000/post", { params })
       .then(response => {
         this.setState({
           posts: response.data
@@ -61,21 +50,17 @@ class SearchPage extends Component {
       })
       .catch(function(error) {
         console.log(error);
-        console.log(base_uri + "/post");
       });
   };
-  onChange = date1 => {
-    console.log("Date before setting is ", this.state.date);
-    this.setState({ date: date1 });
-    console.log("Date selected in search box is", date1);
-    console.log("Date set in current state is ", this.state.date);
+  onChange = date => {
+    this.setState({ date });
   };
   onChangetime = time => this.setState({ time });
   render() {
     const posts = this.state.posts;
     return (
       <div>
-        <div className="Panel" class="flex-container">
+        <Jumbotron className="Panel" class="flex-container">
           <div className="sourceSelect">
             <Select
               options={locationOptions}
@@ -105,32 +90,24 @@ class SearchPage extends Component {
             value={this.state.date}
           />
 
-          <button className="Search" color="green" onClick={this.submitRequest}>
+          <Button className="Submit" color="green" onClick={this.submitRequest}>
             Search
-          </button>
-        </div>
+          </Button>
+        </Jumbotron>
         <ListGroup>
           {posts.map(post => {
-            const { _id, startLocation, endLocation, isFilled, date } = post;
+            const { _id, sourceLocation, destinationLocation, isFilled } = post;
+            // console.log(_id, sourceLocation, destinationLocation);
             return (
-              <ListGroup.Item
-                className="float-left ml-5 mt-4 w-75 h-auto"
-                variant="primary"
-                key={_id}
-              >
-                <Row>
-                  <Col class="postSource">{startLocation} </Col>
-                  <Col class="postDestination">{endLocation}</Col>
-                  <Col class="postDate"> {date} </Col>
-
-                  <Button
-                    className="float-right mr-4 md-2"
-                    variant="primary"
-                    active
-                  >
-                    Join
-                  </Button>
-                </Row>
+              <ListGroup.Item key={_id}>
+                <h2>{sourceLocation}</h2>
+                <p>{destinationLocation}</p>
+                <p>{isFilled}</p>
+                <hr />
+                <Button className="submit">
+                  Join
+                  </Button>   
+                <hr />
               </ListGroup.Item>
             );
           })}

@@ -5,14 +5,3 @@
 .Register {
     /* propertys here */
 }
-.flex-container {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(128, 128, 128);
-    width: 600px;
-    margin: 100px;
-    text-align: right;
-    margin-top: 50px;
-    line-height: 40px;
-    border-radius: 2em
-  }

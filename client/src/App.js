@@ -8,20 +8,22 @@ import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Profile from "./Components/Profile";
 import Account from "./Components/Account";
+import AboutPage from "./Components/AboutUsPage";
 import { Navbar } from "reactstrap";
 import AddPost from "./Components/AddPost/AddPost";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter>      
       <div className="App">
-        <Navigation_bar />
+      <Navigation_bar/>
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/profile" component={Profile} />
           <Route path="/account" component={Account} />
-          <Route path="/" component={SearchPage} />
+          <Route path="/search" component={SearchPage} />
+          <Route path="/about" component={AboutPage} />
         </Switch>
       </div>
     </BrowserRouter>
