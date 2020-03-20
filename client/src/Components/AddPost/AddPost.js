@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import Modal from "react-modal";
 import {
-  Container,
-  List,
-  ListGroupItem,
+  //Container,
+  //List,
+  //ListGroupItem,
   Button,
-  ListGroup,
-  Form,
-  FormGroup
+  //ListGroup,
+  //Form,
+  //FormGroup
 } from "reactstrap";
 import FormPopUp from "./FormPopUp";
 

@@ -1,23 +1,27 @@
-import React, { Component, useState } from "react";
-import ReactDOM from "react-dom";
-import { Link } from "react-router-dom";
-import { Route } from "react-router";
-import profile from "../Profile/Profile";
-import account from "../Account/Account";
-import login from "../Login/Login";
+import React, { Component} from "react";
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
+MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon } from "mdbreact";
+import { BrowserRouter as Router } from 'react-router-dom';
+
+// import ReactDOM from "react-dom";
+// import { Link } from "react-router-dom";
+// import { Route } from "react-router";
+// import profile from "../Profile/Profile";
+// import account from "../Account/Account";
+// import login from "../Login/Login";
 import {
   Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
+  // NavItem,
+  // NavLink,
+  // UncontrolledDropdown,
+  // DropdownToggle,
+  // DropdownMenu,
+  // DropdownItem,
+  // NavbarText,
   Container
 } from "reactstrap";
 import { Dropdown } from "react-bootstrap";
@@ -36,43 +40,44 @@ class Navigation_bar extends Component {
   render() {
     return (
       <div>
-        <Navbar color="dark" dark expand="sm" className="mb-5">
-          <Container>
-            <NavbarBrand href="/">Travellite</NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-auto" navbar></Nav>
-              <div>
-                <img
-                  src={bell}
-                  width="30"
-                  height="30"
-                  className="notifLogo"
-                  hspace="50"
-                  // className="d-inline-block align-top"
-                  alt="Notification bell"
-                />
-              </div>
-              <div>
-                <Dropdown className="dropDown">
-                  <Dropdown.Toggle
-                    color="dark"
-                    variant="success"
-                    id="dropdown-basic"
-                  ></Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="/profile">Profile</Dropdown.Item>
-                    <Dropdown.Item href="/account">My Account</Dropdown.Item>
-                    <Dropdown.Divider></Dropdown.Divider>
-                    <Dropdown.Item href="/login">Logout</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
-            </Collapse>
-          </Container>
-        </Navbar>
-      </div>
+      <MDBNavbar color="black" dark expand="md">
+        <MDBNavbarBrand href="/search">
+          <strong className="white-text" >Travellite</strong>
+        </MDBNavbarBrand>
+        <MDBNavbarToggler onClick={this.toggleCollapse} />
+         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+          <MDBNavbarNav left>
+            
+          </MDBNavbarNav>
+          <MDBNavbarNav right>
+          <MDBNavItem>
+            <MDBNavbarBrand>
+              <strong>
+          <i class="far fa-bell"></i></strong></MDBNavbarBrand>
+            </MDBNavItem>
+            <MDBNavItem>
+               <MDBDropdown>
+                <MDBDropdownToggle nav caret>
+                  <MDBIcon icon="user" />
+                </MDBDropdownToggle>
+                <MDBDropdownMenu className="dropdown-default">
+                   <MDBDropdownItem href="/profile">Profile</MDBDropdownItem>
+                  <MDBDropdownItem href="/account">Account</MDBDropdownItem>
+                  <MDBDropdownItem href="/login">Logout</MDBDropdownItem>  
+                </MDBDropdownMenu>
+              </MDBDropdown>
+            </MDBNavItem>
+            <MDBNavItem>
+            <MDBNavbarBrand href="/about"><strong className="white-text align-center" >
+              About Us
+              </strong></MDBNavbarBrand>
+            </MDBNavItem>
+          </MDBNavbarNav>
+        </MDBCollapse>
+      </MDBNavbar>
+    </div>
     );
   }
 }
 export default Navigation_bar;
+

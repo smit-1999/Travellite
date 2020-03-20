@@ -5,23 +5,3 @@
 .Login {
     /* propertys here */
 }
-/* .rootDiv{
-    float : middle;
-      height: 300px;
-      width: 500px;
-      padding: 10px;      
-      border: 1px solid;
-      background-color: 009900;
-      margin : 200px
-} */
-.flex-container {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(128, 128, 128);
-    width: 500px;
-    margin: 100px;
-    text-align: center;
-    margin-top: 50px;
-    line-height: 55px;
-    border-radius: 1em
-  }
