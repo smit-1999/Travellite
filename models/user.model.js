@@ -21,6 +21,9 @@ const user =new Schema({
     password : {
         type : String
     }
+    requests:{
+        type : Array
+    }
 });
 
 module.exports = mongoose.model('user', user);

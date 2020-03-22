@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Select from "react-select";
 import DatePicker from "react-date-picker";
 import "./SearchPage.css";
-import {Button, Jumbotron, ListGroup} from "react-bootstrap";
+import { Button, Jumbotron, ListGroup } from "react-bootstrap";
 import axios from "axios";
 //var moment = require("moment");
 
@@ -58,6 +58,7 @@ class SearchPage extends Component {
   onChangetime = time => this.setState({ time });
   render() {
     const posts = this.state.posts;
+    console.log("Printing posts fetched : ", posts.data);
     return (
       <div>
         <Jumbotron className="Panel" class="flex-container">
@@ -104,9 +105,7 @@ class SearchPage extends Component {
                 <p>{destinationLocation}</p>
                 <p>{isFilled}</p>
                 <hr />
-                <Button className="submit">
-                  Join
-                  </Button>   
+                <Button className="submit">Join</Button>
                 <hr />
               </ListGroup.Item>
             );
