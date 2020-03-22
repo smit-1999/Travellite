@@ -8,7 +8,7 @@ const notif = new Schema({
   postId: {
     type: String
   },
-  type: {
+  typeofNotif: {
     type: String
   },
   requester: {
