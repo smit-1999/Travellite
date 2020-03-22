@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const user = require("./routes/user.controller");
 const post = require("./routes/post.controller");
+const notification = require("./routes/notification.controller");
 const path = require("path");
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ extended: false }));
 //use routes
 app.use("/user", user);
 app.use("/post", post);
+app.use("/notification", notification);
 // Enable CORS
 // app.use(function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
