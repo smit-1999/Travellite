@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navigation_bar from "./Components/Navigation_bar";
 import { BrowserRouter, Switch, Router, Route } from "react-router-dom";
@@ -11,23 +11,36 @@ import Account from "./Components/Account";
 import AboutPage from "./Components/AboutUsPage";
 import { Navbar } from "reactstrap";
 import AddPost from "./Components/AddPost/AddPost";
-
-function App() {
-  return (
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      username: ''
+    };
+    //this.handleChange = this.handleChange.bind(this);
+  //this.handleForgot = this.handleForgot.bind(this);
+  //this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  onUsernameChange = (username) => {
+    this.setState({ 
+      username: username
+    });
+  }
+  render(){
+    return (
     <BrowserRouter>      
       <div className="App">
-      <Navigation_bar/>
         <Switch>
-          <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/login" component={Login}  />
           <Route path="/profile" component={Profile} />
           <Route path="/account" component={Account} />
-          <Route path="/search" component={SearchPage} />
+          <Route path="/search" component={SearchPage }/>
           <Route path="/about" component={AboutPage} />
         </Switch>
       </div>
     </BrowserRouter>
-  );
+  )};
 }
 
 export default App;

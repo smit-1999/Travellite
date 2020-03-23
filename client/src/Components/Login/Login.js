@@ -3,6 +3,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } 
 import background from "../../images/background.jpg";
 import './Login.css';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 const base_url = require("../../config/keys").base_uri;
 
 // componentWillMount(){}
@@ -19,12 +20,14 @@ class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
+      isLoggedin: false,
       username: null,
     password: null
     };
     this.handleChange = this.handleChange.bind(this);
   //this.handleForgot = this.handleForgot.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
+  this.onUsernameChange = this.onUsernameChange.bind(this);
   }
   handleChange(event) {
     this.setState({ username: event.target.value });
@@ -37,7 +40,12 @@ class Login extends Component {
   // shouldComponentUpdate(){}
   // componentWillUpdate(){}
   // componentDidUpdate(){}
- 
+  onUsernameChange = (username) => {
+    this.setState({ 
+      isLoggedin: true,
+      username: username
+    });
+  }
    handleSubmit() {
     alert("A user was submitted: " + this.state.password + this.state.username);
     const data = {
@@ -51,8 +59,15 @@ class Login extends Component {
     .catch(function (error) {
       console.log('password incorrect');
     });
+    this.onUsernameChange(this.state.username);
   }
   render() {
+    if (this.state.isLoggedin) {
+      console.log(this.state.username);
+      alert("logged in");
+      localStorage.setItem('user',this.state.username)
+      return <Redirect to='/search'/>      
+    }
     return (
       <header>
   

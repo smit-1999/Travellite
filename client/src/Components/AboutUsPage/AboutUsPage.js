@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './AboutUsPage.css';
-
+import Navigation_bar from "../Navigation_bar";
 class AboutUsPage extends Component {
   // constructor(props){
     // super(props);
@@ -18,6 +18,8 @@ class AboutUsPage extends Component {
 
   render() {
     return (
+      <div>
+      <Navigation_bar/>
       <div class="container my-5">
         <section class="team-section text-center dark-grey-text">
           <h3 class="font-weight-bold pb-2 mb-4">Our amazing Scrum team</h3>
@@ -114,7 +116,7 @@ class AboutUsPage extends Component {
 </section>
 
 
-</div>
+</div></div>
     );
   }
 }
