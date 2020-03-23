@@ -4,6 +4,7 @@ import DatePicker from "react-date-picker";
 import "./SearchPage.css";
 import { Button, Jumbotron, ListGroup } from "react-bootstrap";
 import axios from "axios";
+const base_url = require("../../config/keys").base_uri;
 //var moment = require("moment");
 
 const locationOptions = [
@@ -41,7 +42,7 @@ class SearchPage extends Component {
     console.log("Parameters psassed ", params);
     //console.log(this.state);
     axios
-      .get("http://localhost:4000/post", { params })
+      .get(base_url + "/post", { params })
       .then(response => {
         this.setState({
           posts: response.data

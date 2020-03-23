@@ -3,6 +3,7 @@ import './Register.css';
 import axios from 'axios';
 import {Button, Form} from 'react-bootstrap';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+const base_url = require("../../config/keys").base_uri;
   
 class Register extends Component {
   constructor(props){
@@ -41,7 +42,7 @@ handleSubmit() {
   //     username: "poiuyt",
   //     password: "zxc"
   // };
-  //   axios.post('http://localhost:4000/user/add',data)
+  //   axios.post(base_url + '/user/add',data)
   //   .then(function (response) {
   //     console.log(response);
   //   })
