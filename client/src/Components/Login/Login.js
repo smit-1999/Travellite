@@ -3,6 +3,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } 
 import background from "../../images/background.jpg";
 import './Login.css';
 import axios from 'axios';
+const base_url = require("../../config/keys").base_uri;
 
 // componentWillMount(){}
 // componentDidMount(){}
@@ -43,7 +44,7 @@ class Login extends Component {
       username: this.username,
       password: this.password
   };
-    axios.post('http://localhost:4000/user/authentication',data)
+    axios.post(base_url + '/user/authentication',data)
     .then(function (response) {
       console.log(response);
     })
