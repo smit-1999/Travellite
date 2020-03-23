@@ -29,17 +29,33 @@ import { DropdownDivider } from "react-bootstrap/Dropdown";
 const bell = require("../../images/bell-png-5.png");
 
 class Navigation_bar extends Component {
-  state = {
-    isOpen: false
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      username:'',
+      isOpen: false
+    };
+    this.componentDidMount = this.componentDidMount.bind(this);
+    
+    //this.handleChange = this.handleChange.bind(this);
+  //this.handleForgot = this.handleForgot.bind(this);
+  //this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentDidMount() {
+        
+    const user = localStorage.getItem('user')
+    this.setState({
+        username: user,
+    })
+};
   toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen
     });
   };
-  render() {
+  render() { 
     return (
-      <div>
+      <div>        
       <MDBNavbar color="black" dark expand="md">
         <MDBNavbarBrand href="/search">
           <strong className="white-text" >Travellite</strong>
@@ -47,13 +63,13 @@ class Navigation_bar extends Component {
         <MDBNavbarToggler onClick={this.toggleCollapse} />
          <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <MDBNavbarNav left>
-            
+    <MDBNavItem><strong className="white-text">Hi {this.state.username}</strong></MDBNavItem>
           </MDBNavbarNav>
           <MDBNavbarNav right>
           <MDBNavItem>
             <MDBNavbarBrand>
               <strong>
-          <i class="far fa-bell"></i></strong></MDBNavbarBrand>
+          <i className="far fa-bell"></i></strong></MDBNavbarBrand>
             </MDBNavItem>
             <MDBNavItem>
                <MDBDropdown>

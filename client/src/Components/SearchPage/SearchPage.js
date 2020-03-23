@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Select from "react-select";
+import Navigation_bar from "../Navigation_bar";
 import DatePicker from "react-date-picker";
 import "./SearchPage.css";
 import { Button, Jumbotron, ListGroup } from "react-bootstrap";
@@ -13,20 +14,29 @@ const locationOptions = [
   { value: "campus", label: "BPHC" }
 ];
 class SearchPage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      userName:'',
       date: new Date(),
       source: null,
       destination: null,
       time: "10:00",
       posts: []
     };
+    this.componentDidMount= this.componentDidMount.bind(this);
   }
+  componentDidMount() {
+        
+    const user = localStorage.getItem('user')
+    this.setState({
+        userName: user,
+    })
+};
   submitRequest = () => {
     const today = new Date().setHours(0, 0, 0, 0);
     let dateSelected;
-
+    console.log("user ", this.state.userName);
     if (this.state.date === null) alert("Please enter date");
     else if (this.state.source === null && this.state.destination === null) {
       alert("Enter destination and source!");
@@ -39,7 +49,7 @@ class SearchPage extends Component {
       sourceLocation: this.state.source,
       destinationLocation: this.state.destination
     };
-    console.log("Parameters psassed ", params);
+    
     //console.log(this.state);
     axios
       .get(base_url + "/post", { params })
@@ -62,7 +72,9 @@ class SearchPage extends Component {
     console.log("Printing posts fetched : ", posts.data);
     return (
       <div>
-        <Jumbotron className="Panel" class="flex-container">
+
+        <Navigation_bar />
+        <Jumbotron className="flex-container">
           <div className="sourceSelect">
             <Select
               options={locationOptions}
