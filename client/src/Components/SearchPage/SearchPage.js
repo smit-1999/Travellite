@@ -5,6 +5,7 @@ import DatePicker from "react-date-picker";
 import "./SearchPage.css";
 import { Button, Jumbotron, ListGroup } from "react-bootstrap";
 import axios from "axios";
+import {MDBContainer, MDBRow, MDBCol, MDBJumbotron} from 'mdbreact';
 const base_url = require("../../config/keys").base_uri;
 //var moment = require("moment");
 
@@ -74,7 +75,10 @@ class SearchPage extends Component {
       <div>
 
         <Navigation_bar />
-        <Jumbotron className="flex-container">
+        <MDBContainer className="mt-5 text-center">
+        <MDBRow>
+        <MDBCol>
+        <Jumbotron style = {{backgroundColor : "lightsteelblue"}}>
           <div className = "row">
             <div className="sourceSelect" 
             style = {{ width : "25%", 
@@ -114,6 +118,9 @@ class SearchPage extends Component {
             Search
           </Button>
         </Jumbotron>
+        </MDBCol>
+        </MDBRow>        
+        </MDBContainer>
         <ListGroup>
           {posts.map(post => {
             const { _id, sourceLocation, destinationLocation, isFilled } = post;
@@ -124,7 +131,7 @@ class SearchPage extends Component {
                 <p>{destinationLocation}</p>
                 <p>{isFilled}</p>
                 <hr />
-                <Button className="submit">Join</Button>
+                <Button className="submit" color="black">Join</Button>
                 <hr />
               </ListGroup.Item>
             );
