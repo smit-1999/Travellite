@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import DatePicker from "react-date-picker";
 import Select from "react-select";
 import axios from "axios";
-
+const base_url = require('../../config/keys').base_uri;
 const items = [
   { value: "airport", label: "Airport" },
   { value: "secunderabad", label: "Secunderabad" },
@@ -148,7 +148,7 @@ class FormPopUp extends Component {
             else {
               console.log(this.state);
               axios
-                .post("http://localhost:4000/post/add", this.state)
+                .post(base_url + "/post/add", this.state)
                 .then(function(response) {
                   console.log(response);
                 })
