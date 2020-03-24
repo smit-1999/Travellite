@@ -81,7 +81,7 @@ class Login extends Component {
                       <div className="grey-text">
                         <MDBInput
                           label="Username"
-                          icon="user"
+                          icon="fas fa-user-tie"
                           group
                           type="text"
                           validate
@@ -92,7 +92,7 @@ class Login extends Component {
                         />
                         <MDBInput
                           label="Your password"
-                          icon="lock"
+                          icon="far fa-lock"
                           group
                           type="password"
                           validate

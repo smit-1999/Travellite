@@ -63,7 +63,7 @@ handleSubmit() {
                 <div className="grey-text">
                   <MDBInput
                     label="Name"
-                    icon="user"
+                    icon="fas fa-user-tie"
                     group
                     type="text"
                     validate
@@ -73,7 +73,7 @@ handleSubmit() {
                   />
                   <MDBInput
                     label="Mobile number"
-                    icon="user"
+                    icon="fas fa-mobile-alt"
                     group
                     type="text"
                     validate
@@ -83,7 +83,7 @@ handleSubmit() {
                   />
                   <MDBInput
                     label="Your email"
-                    icon="envelope"
+                    icon="fas fa-envelope"
                     group
                     type="email"
                     validate
@@ -93,7 +93,7 @@ handleSubmit() {
                   />
                   <MDBInput
                     label="Username"
-                    icon="user"
+                    icon="far fa-user-circle"
                     group
                     type="text"
                     validate
@@ -103,7 +103,7 @@ handleSubmit() {
                   />
                   <MDBInput
                     label="Your password"
-                    icon="lock"
+                    icon="fas fa-lock"
                     group
                     type="password"
                     validate

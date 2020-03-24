@@ -34,11 +34,11 @@ const noOfPeople = [
 ];
 const d = new Date();
 class FormPopUp extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      postOwner: "Admin",
-      members: ["Admin"],
+      postOwner: "",
+      members: [""],
       // startLocation: { value: null, label: "Enter Start Location" },
       startLocation: "",
       endLocation: "",
@@ -46,8 +46,15 @@ class FormPopUp extends Component {
       timeSlot: "",
       people: ""
     };
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
-
+  componentDidMount() {
+        
+    const user = localStorage.getItem('user')
+    this.setState({
+      postOwner: user,
+    })
+};
   render() {
     // console.log(startLocation);
     return (
