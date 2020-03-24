@@ -75,7 +75,10 @@ class SearchPage extends Component {
 
         <Navigation_bar />
         <Jumbotron className="flex-container">
-          <div className="sourceSelect">
+          <div className = "row">
+            <div className="sourceSelect" 
+            style = {{ width : "25%", 
+            margin :"1%" }} >
             <Select
               options={locationOptions}
               defaultValue={{ label: "Source..." }}
@@ -86,7 +89,9 @@ class SearchPage extends Component {
               }}
             />
           </div>
-          <div className="destSelect">
+          <div className="destSelect"
+          style = {{ width : "25%", 
+          margin :"1%" }}>
             <Select
               options={locationOptions}
               defaultValue={{ label: "Destination..." }}
@@ -104,6 +109,7 @@ class SearchPage extends Component {
             value={this.state.date}
           />
 
+</div><hr/>
           <Button className="Submit" color="green" onClick={this.submitRequest}>
             Search
           </Button>
