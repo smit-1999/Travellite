@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import Select from "react-select";
+import Navigation_bar from "../Navigation_bar";
 import DatePicker from "react-date-picker";
 import "./SearchPage.css";
 import { Button, Jumbotron, ListGroup } from "react-bootstrap";
 import axios from "axios";
-import keys from "../../../../config/keys";
 
-const base_uri = "http://localhost:4000" || keys.base_uri;
+import { MDBContainer, MDBRow, MDBCol, MDBJumbotron } from "mdbreact";
+const base_url = require("../../config/keys").base_uri;
+//var moment = require("moment");
 
 const locationOptions = [
   { value: "airport", label: "Airport" },
@@ -14,18 +16,26 @@ const locationOptions = [
   { value: "campus", label: "BPHC" }
 ];
 class SearchPage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      userName: "",
       date: new Date(),
       source: null,
       destination: null,
       time: "10:00",
       posts: []
     };
-    this.requestGroup = this.requestGroup.bind(this);
-  }
 
+    this.requestGroup = this.requestGroup.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+  }
+  componentDidMount() {
+    const user = localStorage.getItem("user");
+    this.setState({
+      userName: user
+    });
+  }
   requestGroup = (postid, postOwner) => {
     console.log(postid, postOwner);
     /*method for psoting it to notif database*/
@@ -48,10 +58,11 @@ class SearchPage extends Component {
 
     alert("Your request has been submitted");
   };
+
   submitRequest = () => {
     const today = new Date().setHours(0, 0, 0, 0);
     let dateSelected;
-
+    console.log("user ", this.state.userName);
     if (this.state.date === null) alert("Please enter date");
     else if (this.state.source === null && this.state.destination === null) {
       alert("Enter destination and source!");
@@ -64,10 +75,10 @@ class SearchPage extends Component {
       sourceLocation: this.state.source,
       destinationLocation: this.state.destination
     };
-    console.log("Parameters psassed ", params);
+
     //console.log(this.state);
     axios
-      .get("http://localhost:4000/post", { params })
+      .get(base_url + "/post", { params })
       .then(response => {
         this.setState({
           posts: response.data
@@ -87,40 +98,59 @@ class SearchPage extends Component {
     console.log("Printing posts fetched : ", posts.data);
     return (
       <div>
-        <Jumbotron className="Panel" class="flex-container">
-          <div className="sourceSelect">
-            <Select
-              options={locationOptions}
-              defaultValue={{ label: "Source..." }}
-              onChange={e => {
-                this.setState({
-                  source: e.label
-                });
-              }}
-            />
-          </div>
-          <div className="destSelect">
-            <Select
-              options={locationOptions}
-              defaultValue={{ label: "Destination..." }}
-              onChange={e => {
-                this.setState({
-                  destination: e.label
-                });
-              }}
-            />
-          </div>
+        <Navigation_bar />
+        <MDBContainer className="mt-5 text-center">
+          <MDBRow>
+            <MDBCol>
+              <Jumbotron style={{ backgroundColor: "lightsteelblue" }}>
+                <div className="row">
+                  <div
+                    className="sourceSelect"
+                    style={{ width: "25%", margin: "1%" }}
+                  >
+                    <Select
+                      options={locationOptions}
+                      defaultValue={{ label: "Source..." }}
+                      onChange={e => {
+                        this.setState({
+                          source: e.label
+                        });
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="destSelect"
+                    style={{ width: "25%", margin: "1%" }}
+                  >
+                    <Select
+                      options={locationOptions}
+                      defaultValue={{ label: "Destination..." }}
+                      onChange={e => {
+                        this.setState({
+                          destination: e.label
+                        });
+                      }}
+                    />
+                  </div>
 
-          <DatePicker
-            className="dateSelect"
-            onChange={this.onChange}
-            value={this.state.date}
-          />
-
-          <Button className="Submit" color="green" onClick={this.submitRequest}>
-            Search
-          </Button>
-        </Jumbotron>
+                  <DatePicker
+                    className="dateSelect"
+                    onChange={this.onChange}
+                    value={this.state.date}
+                  />
+                </div>
+                <hr />
+                <Button
+                  className="Submit"
+                  color="green"
+                  onClick={this.submitRequest}
+                >
+                  Search
+                </Button>
+              </Jumbotron>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
         <ListGroup>
           {posts.map(post => {
             const {

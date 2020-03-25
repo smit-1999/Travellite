@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import DatePicker from "react-date-picker";
 import Select from "react-select";
 import axios from "axios";
-
+const base_url = require('../../config/keys').base_uri;
 const items = [
   { value: "airport", label: "Airport" },
   { value: "secunderabad", label: "Secunderabad" },
@@ -34,11 +34,11 @@ const noOfPeople = [
 ];
 const d = new Date();
 class FormPopUp extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      postOwner: "Admin",
-      members: ["Admin"],
+      postOwner: "",
+      members: [""],
       // startLocation: { value: null, label: "Enter Start Location" },
       startLocation: "",
       endLocation: "",
@@ -46,8 +46,15 @@ class FormPopUp extends Component {
       timeSlot: "",
       people: ""
     };
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
-
+  componentDidMount() {
+        
+    const user = localStorage.getItem('user')
+    this.setState({
+      postOwner: user,
+    })
+};
   render() {
     // console.log(startLocation);
     return (
@@ -148,7 +155,7 @@ class FormPopUp extends Component {
             else {
               console.log(this.state);
               axios
-                .post("http://localhost:4000/post/add", this.state)
+                .post(base_url + "/post/add", this.state)
                 .then(function(response) {
                   console.log(response);
                 })
