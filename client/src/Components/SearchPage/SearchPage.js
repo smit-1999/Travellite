@@ -4,7 +4,9 @@ import DatePicker from "react-date-picker";
 import "./SearchPage.css";
 import { Button, Jumbotron, ListGroup } from "react-bootstrap";
 import axios from "axios";
-//var moment = require("moment");
+import keys from "../../../../config/keys";
+
+const base_uri = "http://localhost:4000" || keys.base_uri;
 
 const locationOptions = [
   { value: "airport", label: "Airport" },
@@ -21,7 +23,31 @@ class SearchPage extends Component {
       time: "10:00",
       posts: []
     };
+    this.requestGroup = this.requestGroup.bind(this);
   }
+
+  requestGroup = (postid, postOwner) => {
+    console.log(postid, postOwner);
+    /*method for psoting it to notif database*/
+    const notif = {
+      typeofNotif: "request",
+      postId: postid,
+      requester: "12",
+      postOwner: "1"
+    };
+    // axios
+    //   .post(base_uri + "/notif/add", notif)
+    //   .then(function(response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
+
+    /*method for posting it to users request array*/
+
+    alert("Your request has been submitted");
+  };
   submitRequest = () => {
     const today = new Date().setHours(0, 0, 0, 0);
     let dateSelected;
@@ -97,15 +123,29 @@ class SearchPage extends Component {
         </Jumbotron>
         <ListGroup>
           {posts.map(post => {
-            const { _id, sourceLocation, destinationLocation, isFilled } = post;
+            const {
+              _id,
+              sourceLocation,
+              destinationLocation,
+              isFilled,
+              date,
+              postOwner
+            } = post;
             // console.log(_id, sourceLocation, destinationLocation);
             return (
               <ListGroup.Item key={_id}>
                 <h2>{sourceLocation}</h2>
                 <p>{destinationLocation}</p>
                 <p>{isFilled}</p>
+                <p>{date}</p>
+                <p>{postOwner}</p>
                 <hr />
-                <Button className="submit">Join</Button>
+                <Button
+                  className="submit"
+                  onClick={() => this.requestGroup(_id, postOwner)}
+                >
+                  Request
+                </Button>
                 <hr />
               </ListGroup.Item>
             );
