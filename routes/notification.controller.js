@@ -14,9 +14,9 @@ router.get("/", (req, res) => {
 
 router.post("/add", (req, res) => {
   const newNotif = new Notification(req.body);
-
-  console.log(newNotif);
-  newPost.save(function(err, instance) {
+  console.log("Notif req data is:", req.body);
+  console.log("Saving new incoming notification : ", newNotif);
+  newNotif.save(function(err, instance) {
     res_object = {
       status: "",
       message: ""

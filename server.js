@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: false }));
 //use routes
 app.use("/user", user);
 app.use("/post", post);
-app.use("/notification", notification);
+app.use("/notif", notification);
 // Enable CORS
 // app.use(function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
