@@ -5,7 +5,6 @@ import DatePicker from "react-date-picker";
 import "./SearchPage.css";
 import { Button, Jumbotron, ListGroup } from "react-bootstrap";
 import axios from "axios";
-
 import { MDBContainer, MDBRow, MDBCol, MDBJumbotron } from "mdbreact";
 const base_url = require("../../config/keys").base_uri;
 //var moment = require("moment");
@@ -36,23 +35,20 @@ class SearchPage extends Component {
       userName: user
     });
   }
-  requestGroup = (postid, postOwner) => {
-    console.log(postid, postOwner);
-    /*method for psoting it to notif database*/
-    const notif = {
-      typeofNotif: "request",
-      postId: postid,
-      requester: "12",
-      postOwner: "1"
-    };
-    // axios
-    //   .post(base_uri + "/notif/add", notif)
-    //   .then(function(response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
+  requestGroup = (postid, postowner) => {
+    axios
+      .post(base_url + "/notif/add", {
+        postOwner: postowner,
+        postId: postid,
+        typeofNotif: "request",
+        requester: this.state.userName
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
 
     /*method for posting it to users request array*/
 
