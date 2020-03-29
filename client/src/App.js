@@ -37,7 +37,7 @@ class App extends Component {
             <Route path="/account" component={Account} />
             <Route path="/search" component={SearchPage} />
             <Route path="/about" component={AboutPage} />
-
+            <Route path="/addPost" component={AddPost} />
             <Route path="/">
               {" "}
               This is the index page.Select /x to go to page x
