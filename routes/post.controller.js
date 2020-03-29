@@ -3,6 +3,7 @@ const router = express.Router();
 
 //Post model
 const Post = require("../models/post.model");
+const User = require("../models/user.model");
 
 router.get("/", (req, res) => {
   Post.find(req.query).then(posts => {
