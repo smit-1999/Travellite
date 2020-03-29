@@ -4,7 +4,7 @@ import {
   //Container,
   //List,
   //ListGroupItem,
-  Button,
+  Button
   //ListGroup,
   //Form,
   //FormGroup
@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import DatePicker from "react-date-picker";
 import Select from "react-select";
 import axios from "axios";
-const base_url = require('../../config/keys').base_uri;
+const base_url = require("../../config/keys").base_uri;
 const items = [
   { value: "airport", label: "Airport" },
   { value: "secunderabad", label: "Secunderabad" },
@@ -32,7 +32,6 @@ const noOfPeople = [
   { value: "3", label: "3" },
   { value: "4", label: "4" }
 ];
-const d = new Date();
 class FormPopUp extends Component {
   constructor(props) {
     super(props);
@@ -40,21 +39,21 @@ class FormPopUp extends Component {
       postOwner: "",
       members: [""],
       // startLocation: { value: null, label: "Enter Start Location" },
-      startLocation: "",
-      endLocation: "",
-      date: new Date(),
+      startLocation: null,
+      endLocation: null,
+      date: "",
+      dateObject: new Date(),
       timeSlot: "",
       people: ""
     };
     this.componentDidMount = this.componentDidMount.bind(this);
   }
   componentDidMount() {
-        
-    const user = localStorage.getItem('user')
+    const user = localStorage.getItem("user");
     this.setState({
-      postOwner: user,
-    })
-};
+      postOwner: user
+    });
+  }
   render() {
     // console.log(startLocation);
     return (
@@ -100,17 +99,20 @@ class FormPopUp extends Component {
             onChange={dat => {
               this.setState(
                 {
-                  date: new Date(
-                    dat.getFullYear(),
-                    dat.getMonth(),
-                    dat.getDate()
-                  )
+                  dateObject: dat,
+                  date:
+                    dat.getDate() +
+                    "-" +
+                    (dat.getMonth() + 1) +
+                    "-" +
+                    dat.getFullYear()
                 },
-                () => console.log(this.state.date)
+                () => console.log(this.state.date),
+                () => console.log(this.state.dateObject)
               );
               // console.log(startLocation);
             }}
-            value={this.state.date}
+            value={this.state.dateObject}
           ></DatePicker>
         </div>
         <div>
