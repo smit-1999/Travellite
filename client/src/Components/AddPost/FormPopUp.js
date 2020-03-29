@@ -38,9 +38,9 @@ class FormPopUp extends Component {
     this.state = {
       postOwner: "",
       members: [""],
-      // startLocation: { value: null, label: "Enter Start Location" },
-      startLocation: null,
-      endLocation: null,
+      // sourceLocation: { value: null, label: "Enter Start Location" },
+      sourceLocation: null,
+      destinationLocation: null,
       date: "",
       dateObject: new Date(),
       timeSlot: "",
@@ -55,7 +55,7 @@ class FormPopUp extends Component {
     });
   }
   render() {
-    // console.log(startLocation);
+    // console.log(sourceLocation);
     return (
       <form>
         <div>
@@ -64,8 +64,8 @@ class FormPopUp extends Component {
             options={items}
             defaultValue={{ label: "Start Location..." }}
             onChange={start => {
-              this.setState({ startLocation: start.value }, () =>
-                console.log(this.state.startLocation)
+              this.setState({ sourceLocation: start.value }, () =>
+                console.log(this.state.sourceLocation)
               );
             }}
           ></Select>
@@ -76,8 +76,8 @@ class FormPopUp extends Component {
             options={items}
             defaultValue={{ label: "End Location..." }}
             onChange={end => {
-              this.setState({ endLocation: end.value }, () =>
-                console.log(this.state.endLocation)
+              this.setState({ destinationLocation: end.value }, () =>
+                console.log(this.state.destinationLocation)
               );
             }}
           ></Select>
@@ -89,7 +89,7 @@ class FormPopUp extends Component {
             type="date"
             onChange={dat => {
               this.setState({ date: dat }, () => console.log(this.state.date));
-              // console.log(startLocation);
+              // console.log(sourceLocation);
             }}
           />
         </div> */}
@@ -110,7 +110,7 @@ class FormPopUp extends Component {
                 () => console.log(this.state.date),
                 () => console.log(this.state.dateObject)
               );
-              // console.log(startLocation);
+              // console.log(sourceLocation);
             }}
             value={this.state.dateObject}
           ></DatePicker>
@@ -124,7 +124,7 @@ class FormPopUp extends Component {
               this.setState({ timeSlot: time.value }, () =>
                 console.log(this.state.timeSlot)
               );
-              // console.log(startLocation);
+              // console.log(sourceLocation);
             }}
           ></Select>
         </div>
@@ -137,22 +137,24 @@ class FormPopUp extends Component {
               this.setState({ people: peep.value }, () =>
                 console.log(this.state.people)
               );
-              // console.log(startLocation);
+              // console.log(sourceLocation);
             }}
           ></Select>
         </div>
         <Button
           onClick={() => {
-            if (this.state.startLocation === null)
+            if (this.state.sourceLocation === null)
               alert("Start Location empty");
-            else if (this.state.endLocation === null)
+            else if (this.state.destinationLocation === null)
               alert("End Location empty");
             else if (this.state.date < new Date())
               alert("Date cannot be less than today ");
             else if (this.state.timeSlot === null) alert("Time Slot empty");
             else if (this.state.people === null)
               alert("You want to travel alone?");
-            else if (this.state.startLocation === this.state.endLocation)
+            else if (
+              this.state.sourceLocation === this.state.destinationLocation
+            )
               alert("Start and End location same");
             else {
               console.log(this.state);
