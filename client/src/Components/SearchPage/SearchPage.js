@@ -27,6 +27,7 @@ class SearchPage extends Component {
     };
 
     this.requestGroup = this.requestGroup.bind(this);
+
     this.componentDidMount = this.componentDidMount.bind(this);
   }
   componentDidMount() {
@@ -35,6 +36,7 @@ class SearchPage extends Component {
       userName: user
     });
   }
+
   requestGroup = (postid, postowner) => {
     axios
       .post(base_url + "/notif/add", {
@@ -195,6 +197,7 @@ class SearchPage extends Component {
                 <p>{date}</p>
                 <p>{postOwner}</p>
                 <hr />
+
                 <Button
                   className="submit"
                   onClick={() => this.requestGroup(_id, postOwner)}
