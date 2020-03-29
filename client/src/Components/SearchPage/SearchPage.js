@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Select from "react-select";
 import Navigation_bar from "../Navigation_bar";
-import DatePicker from "react-date-picker";
 import "./SearchPage.css";
 import { Button, Jumbotron, ListGroup } from "react-bootstrap";
 import axios from "axios";
 import { MDBContainer, MDBRow, MDBCol, MDBJumbotron } from "mdbreact";
+import DatePicker from "react-date-picker";
+import { FormGroup, Label, FormText } from "reactstrap";
+//import DatePicker from "reactstrap-date-picker";
 const base_url = require("../../config/keys").base_uri;
-//var moment = require("moment");
-
 const locationOptions = [
   { value: "airport", label: "Airport" },
   { value: "secunderabad", label: "Secunderabad" },
@@ -51,13 +51,23 @@ class SearchPage extends Component {
       });
 
     /*method for posting it to users request array*/
-
+    axios
+      .put(base_url + "/user", {
+        userId: this.state.userName,
+        postId: postid
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
     alert("Your request has been submitted");
   };
 
   submitRequest = () => {
     const today = new Date().setHours(0, 0, 0, 0);
-    let dateSelected;
+
     console.log("user ", this.state.userName);
     if (this.state.date === null) alert("Please enter date");
     else if (this.state.source === null && this.state.destination === null) {
@@ -66,28 +76,39 @@ class SearchPage extends Component {
       alert("Same source and destination.");
     } else if (this.state.date.setHours(0, 0, 0, 0) < today) {
       alert("Enter valid date");
-    }
-    const params = {
-      sourceLocation: this.state.source,
-      destinationLocation: this.state.destination
-    };
-
-    //console.log(this.state);
-    axios
-      .get(base_url + "/post", { params })
-      .then(response => {
-        this.setState({
-          posts: response.data
+    } else if (this.state.destination === null || this.state.source === null) {
+      alert("Please fill in the required fields");
+    } else {
+      const params = {
+        sourceLocation: this.state.source,
+        destinationLocation: this.state.destination
+        // date: this.state.date
+      };
+      console.log("Printing date selected", this.state.date);
+      //console.log(this.state);
+      axios
+        .get(base_url + "/post", { params })
+        .then(response => {
+          this.setState({
+            posts: response.data
+          });
+          console.log("Search response received", this.state.posts);
+        })
+        .catch(function(error) {
+          console.log(error);
         });
-        console.log("Search response received", this.state.posts);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    }
   };
   onChange = date => {
     this.setState({ date });
+    console.log(this.state.date);
   };
+  handleChange(value, formattedValue) {
+    // this.setState({
+    //   value: value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
+    //   formattedValue: formattedValue // Formatted String, ex: "11/19/2016"
+    // });
+  }
   onChangetime = time => this.setState({ time });
   render() {
     const posts = this.state.posts;
@@ -128,6 +149,14 @@ class SearchPage extends Component {
                       }}
                     />
                   </div>
+
+                  {/* <div>
+                    <DatePicker
+                      id="date-picker"
+                      onChange={this.onChange}
+                      value={this.state.date}
+                    />
+                  </div> */}
 
                   <DatePicker
                     className="dateSelect"

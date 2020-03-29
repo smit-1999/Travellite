@@ -13,6 +13,30 @@ router.post("/add", (req, res) => {
     .then(res_object => res.json(res_object))
     .catch(err => res.json(err));
 });
+
+router.put("/", (req, res) => {
+  dateTest = new Date();
+  // arr = [
+  //   {
+  //     id: "123456",
+  //     subtype: "book",
+  //     title: "c programing",
+  //     body: " complete tutorial for c",
+  //     filetype: ".pdf",
+  //     date: dateTest
+  //   }
+  // ];
+  // console.log(req.body.arr[0][0].pid);
+  User.updateOne(
+    // { _id: "5e80c2d71c9d44000017fae5" },
+    { username: req.body.userId },
+    { $push: { requests: req.body.postId } }
+  ).then(function(err, updelem) {
+    console.log("Upd elem", +JSON.stringify(updelem));
+    res.send({ success: true });
+  });
+});
+
 async function addUser({
   firstname,
   lastname,
