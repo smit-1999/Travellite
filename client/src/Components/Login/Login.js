@@ -69,9 +69,8 @@ class Login extends Component {
       return <Redirect to='/search'/>      
     }
     return (
-      <header>
   
-   <MDBContainer>
+   <MDBContainer className ="mt-5">
             <MDBRow>
               <MDBCol md="6">
                 <MDBCard> 
@@ -105,13 +104,15 @@ class Login extends Component {
                           Log in
                         </MDBBtn>
                       </div>
+                      <div className="text-center">
+                       Not a member..? <a href="/register">Register</a>
+                      </div>
                     </form>
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
             </MDBRow>
           </MDBContainer>
-</header>
     );
   }
 }

@@ -36,7 +36,7 @@ class Navigation_bar extends Component {
       isOpen: false
     };
     this.componentDidMount = this.componentDidMount.bind(this);
-    
+    this.toggleCollapse = this.toggleCollapse.bind(this);
     //this.handleChange = this.handleChange.bind(this);
   //this.handleForgot = this.handleForgot.bind(this);
   //this.handleSubmit = this.handleSubmit.bind(this);
@@ -48,7 +48,7 @@ class Navigation_bar extends Component {
         username: user,
     })
 };
-  toggle = () => {
+  toggleCollapse = () => {
     this.setState({
       isOpen: !this.state.isOpen
     });
