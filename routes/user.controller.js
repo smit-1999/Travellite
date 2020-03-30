@@ -38,8 +38,7 @@ router.put("/", (req, res) => {
 });
 
 async function addUser({
-  firstname,
-  lastname,
+  name,
   email,
   mob,
   username,
@@ -51,13 +50,13 @@ async function addUser({
     message: ""
   };
   if (user) {
-    res_object["status"] = "failure";
+    res_object["status"] = "0";
     res_object["message"] = "username already exists";
     console.log(res_object);
     return res_object;
   } else {
     User.create(
-      { firstname, lastname, email, mob, username, password },
+      { name, email, mob, username, password },
       function(err, instance) {
         if (err) {
           res_object["status"] = "failure";
@@ -66,7 +65,7 @@ async function addUser({
           console.log(err);
           return res_object;
         } else {
-          res_object["status"] = "success";
+          res_object["status"] = "1";
           res_object["message"] = "User added to the database";
           console.log(res_object);
           return res_object;
