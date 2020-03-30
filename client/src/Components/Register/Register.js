@@ -61,12 +61,7 @@ handleSubmit= event => {
   };
   axios.post(base_url + '/user/add', data)
     .then(response => {
-      //if(!response.data.status.localeCompare("0")) alert("username already exists");
       console.log(response);
-      // else if(!response.data.status.localeCompare("1")){
-      //   alert("Welcome to Travellite !");
-      //   this.redirect = "1";
-      // }
       if(response.data === ("")){
         alert("Welcome to Travellite !");
          this.setState({
@@ -83,7 +78,6 @@ handleSubmit= event => {
 }
   render() {
     if(this.state.redirect){
-      alert("login")
       return <Redirect to='/login'/>
     }
     return (

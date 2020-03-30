@@ -22,16 +22,11 @@ class Login extends Component {
     this.state = {
       isLoggedin: false,
       username: null,
-    password: null
+      password: null
     };
-    this.handleChange = this.handleChange.bind(this);
-  //this.handleForgot = this.handleForgot.bind(this);
-  this.handleSubmit = this.handleSubmit.bind(this);
-  this.onUsernameChange = this.onUsernameChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  //this.onUsernameChange = this.onUsernameChange.bind(this);
   }
-  handleChange(event) {
-    this.setState({ username: event.target.value });
-    }
   // componentWillMount(){}
   // componentDidMount(){}
   // componentWillUnmount(){}
@@ -40,31 +35,47 @@ class Login extends Component {
   // shouldComponentUpdate(){}
   // componentWillUpdate(){}
   // componentDidUpdate(){}
-  onUsernameChange = (username) => {
-    this.setState({ 
-      isLoggedin: true,
-      username: username
-    });
-  }
-   handleSubmit() {
-    alert("A user was submitted: " + this.state.password + this.state.username);
-    const data = {
-      username: this.username,
-      password: this.password
+  // onUsernameChange = (username) => {
+  //   this.setState({ 
+  //     isLoggedin: true,
+  //     username: username
+  //   });
+  // }
+   handleSubmit= event => {
+     event.preventDefault();
+     if(this.state.username === null || this.state.username === ""){
+      alert("enter username");
+    }else if(this.state.password === null || this.state.password === ""){
+      alert("enter password");
+    }else{
+     const data = {
+      username: this.state.username,
+      password: this.state.password
   };
     axios.post(base_url + '/user/authentication',data)
-    .then(function (response) {
+    .then(response => {
       console.log(response);
+      if(!response.data.status.localeCompare("0")){
+          alert("Username doesnt exists");
+      }else if(!response.data.status.localeCompare("2")){
+          alert("Incorrect Password");
+      }else if(!response.data.status.localeCompare("1")){
+        this.setState({
+          isLoggedin:true,
+          username : data.username
+        });
+      }else{
+        alert("Error , Try Again ... !!!");
+      }
     })
     .catch(function (error) {
-      console.log('password incorrect');
+      console.log(error);
     });
-    this.onUsernameChange(this.state.username);
+    }
   }
   render() {
     if (this.state.isLoggedin) {
       console.log(this.state.username);
-      alert("logged in");
       localStorage.setItem('user',this.state.username)
       return <Redirect to='/search'/>      
     }
@@ -100,7 +111,7 @@ class Login extends Component {
                         />
                       </div>
                       <div className="text-center py-4 mt-3">
-                        <MDBBtn color="blue" type="submit" onClick={this.handleSubmit} href="/search">
+                        <MDBBtn color="blue" type="submit" onClick={this.handleSubmit}>
                           Log in
                         </MDBBtn>
                       </div>
