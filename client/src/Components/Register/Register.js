@@ -33,7 +33,25 @@ class Register extends Component {
   
 handleSubmit= event => {
   event.preventDefault();
-  const data = {
+  const reg_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const reg_mobile = /^[0]?[6789]\d{9}$/;
+  if(this.state.name === null || this.state.name === ""){
+    alert("enter name");
+  }else if(this.state.email === null || this.state.email === ""){
+    alert("enter email");
+  }else if(this.state.mobile === null || this.state.mobile === ""){
+    alert("enter mobile");
+  }else if(this.state.username === null || this.state.username === ""){
+    alert("enter username");
+  }else if(this.state.password === null || this.state.password === ""){
+    alert("enter password");
+  }else if(reg_email.test(this.state.email) === false){
+    alert("enter valid email");
+  }else if(reg_mobile.test(this.state.mobile) === false){
+    alert("enter valid mobile number");
+  }
+  else{
+    const data = {
     name : this.state.name,
     email : this.state.email,
     mob : this.state.mobile,
@@ -61,6 +79,7 @@ handleSubmit= event => {
     .catch(function (error) {
       console.log(error);
     });
+  }
 }
   render() {
     if(this.state.redirect){
