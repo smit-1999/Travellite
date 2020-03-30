@@ -79,8 +79,8 @@ router.post("/authentication", authentication);
 
 function authentication(req, res, next) {
   authenticate(req.body)
-    .then(user =>
-      user ? res.json(user) : res.json({ message: "password is incorrect" })
+    .then(res_obj =>
+      res_obj ? res.json(res_obj) : res.json({ message: "password is incorrect" })
     )
     .catch(err => next(err));
 }
@@ -88,15 +88,19 @@ function authentication(req, res, next) {
 async function authenticate({ username, password }) {
   const user = await User.findOne({ username });
   if (!user) {
-    return { username: "Username not found" };
+    return { username,
+      status: "0",
+      message: "Username not found" };
   } else if (user && !password.localeCompare(user.password)) {
     return {
       username,
+      status:"1",
       message: "login succesful"
     };
   } else {
     return {
       username,
+      status : "2",
       message: "password incorrect"
     };
   }
