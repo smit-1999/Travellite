@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 import './Profile.css';
 
 class Profile extends Component {
@@ -17,6 +18,14 @@ class Profile extends Component {
   // componentDidUpdate(){}
 
   render() {
+    const loggedIn = localStorage.getItem("loggedIn");
+    if(loggedIn.localeCompare("false")===0){
+      return (
+        <Redirect
+          to="/Login"
+        />
+      );
+    }
     return (
       <div>Profile works</div>
     );

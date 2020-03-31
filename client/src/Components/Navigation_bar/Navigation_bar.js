@@ -50,17 +50,19 @@ class Navigation_bar extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
 
     this.toggleCollapse = this.toggleCollapse.bind(this);
-
-    //this.handleChange = this.handleChange.bind(this);
-    //this.handleForgot = this.handleForgot.bind(this);
-    //this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleLogin = this.toggleLogin.bind(this);
   }
   componentDidMount() {
     const user = localStorage.getItem("user");
     this.setState({
-      username: user
-    });
-  }
+
+        username: user,
+    })
+};
+  toggleLogin = () => {
+    localStorage.setItem("loggedIn", false);
+    localStorage.setItem("user","");
+    };
   toggleCollapse = () => {
     this.setState({
       isOpen: !this.state.isOpen
@@ -68,47 +70,44 @@ class Navigation_bar extends Component {
   };
   render() {
     return (
-      <div>
-        <MDBNavbar color="black" dark expand="md">
-          <MDBNavbarBrand href="/search">
-            <strong className="white-text">Travellite</strong>
-          </MDBNavbarBrand>
-          <MDBNavbarToggler onClick={this.toggleCollapse} />
-          <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-            <MDBNavbarNav left>
-              <MDBNavItem>
-                <strong className="white-text">Hi {this.state.username}</strong>
-              </MDBNavItem>
-            </MDBNavbarNav>
-            <MDBNavbarNav right>
-              <MDBNavItem>
-                <MDBNavbarBrand>
-                  <strong>
-                    <i className="far fa-bell"></i>
-                  </strong>
-                </MDBNavbarBrand>
-              </MDBNavItem>
-              <MDBNavItem>
-                <MDBDropdown>
-                  <MDBDropdownToggle nav caret>
-                    <MDBIcon icon="user" />
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu className="dropdown-default">
-                    <MDBDropdownItem href="/profile">Profile</MDBDropdownItem>
-                    <MDBDropdownItem href="/account">Account</MDBDropdownItem>
-                    <MDBDropdownItem href="/login">Logout</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-              </MDBNavItem>
-              <MDBNavItem>
-                <MDBNavbarBrand href="/about">
-                  <strong className="white-text align-center">About Us</strong>
-                </MDBNavbarBrand>
-              </MDBNavItem>
-            </MDBNavbarNav>
-          </MDBCollapse>
-        </MDBNavbar>
-      </div>
+
+      <div>        
+      <MDBNavbar color="black" dark expand="md">
+        <MDBNavbarBrand href="/search">
+          <strong className="white-text" >Travellite</strong>
+        </MDBNavbarBrand>
+        <MDBNavbarToggler onClick={this.toggleCollapse} />
+         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+          <MDBNavbarNav left>
+    <MDBNavItem><strong className="white-text">Hi {this.state.username}</strong></MDBNavItem>
+          </MDBNavbarNav>
+          <MDBNavbarNav right>
+          <MDBNavItem>
+            <MDBNavbarBrand>
+              <strong>
+          <i className="far fa-bell"></i></strong></MDBNavbarBrand>
+            </MDBNavItem>
+            <MDBNavItem>
+               <MDBDropdown>
+                <MDBDropdownToggle nav caret>
+                  <MDBIcon icon="user" />
+                </MDBDropdownToggle>
+                <MDBDropdownMenu className="dropdown-default">
+                   <MDBDropdownItem href="/profile">Profile</MDBDropdownItem>
+                  <MDBDropdownItem href="/account">Account</MDBDropdownItem>
+    <MDBDropdownItem href="/login" onClick={this.toggleLogin}>Logout</MDBDropdownItem>  
+                </MDBDropdownMenu>
+              </MDBDropdown>
+            </MDBNavItem>
+            <MDBNavItem>
+            <MDBNavbarBrand href="/about"><strong className="white-text align-center" >
+              About Us
+              </strong></MDBNavbarBrand>
+            </MDBNavItem>
+          </MDBNavbarNav>
+        </MDBCollapse>
+      </MDBNavbar>
+    </div>
     );
   }
 }

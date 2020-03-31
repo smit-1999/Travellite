@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Modal from "react-modal";
+import { Redirect } from "react-router-dom";
 import {
   //Container,
   //List,
@@ -27,6 +28,14 @@ class AddPost extends Component {
     this.setState({ modalIsOpen: false });
   }
   render() {
+    const loggedIn = localStorage.getItem("loggedIn");
+    if(loggedIn.localeCompare("false")===0){
+      return (
+        <Redirect
+          to="/Login"
+        />
+      );
+    }
     return (
       <div>
         <Button

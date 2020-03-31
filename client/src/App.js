@@ -17,16 +17,31 @@ class App extends Component {
     this.state = {
       username: ""
     };
-    //this.handleChange = this.handleChange.bind(this);
+    this.requireAuth = this.requireAuth.bind(this);
     //this.handleForgot = this.handleForgot.bind(this);
-    //this.handleSubmit = this.handleSubmit.bind(this);
+    //this.handleSubmit = this.handleSubmit.bind(this);  
+    //this.componentDidMount = this.componentDidMount.bind(this);  
   }
-  onUsernameChange = username => {
+  componentDidMount(){
+    if(this.state.flag === false){
+    localStorage.setItem('loggedIn',false);
     this.setState({
-      username: username
-    });
-  };
+      flag : true
+    })
+    }
+  }
+  requireAuth(nextState, replace){
+    const loggedIn = localStorage.getItem('loggedIn');
+    console.log(loggedIn);
+    alert(loggedIn);
+    if (!loggedIn) {
+      replace({
+        pathname: '/login'
+      })
+    }
+  }
   render() {
+    //localStorage.setItem('loggedIn',false);
     return (
       <BrowserRouter>
         <div className="App">
@@ -35,10 +50,10 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
             <Route path="/account" component={Account} />
-            <Route path="/search" component={SearchPage} />
+            <Route path="/search" component={SearchPage}/>
             <Route path="/about" component={AboutPage} />
             <Route path="/addPost" component={AddPost} />
-            <Route path="/">
+            <Route exact path="/">
               {" "}
               This is the index page.Select /x to go to page x
             </Route>
