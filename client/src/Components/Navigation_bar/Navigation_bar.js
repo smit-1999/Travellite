@@ -58,6 +58,7 @@ class Navigation_bar extends Component {
       username: user
     });
   }
+
   toggleLogin = () => {
     localStorage.setItem("loggedIn", false);
     localStorage.setItem("user","");
