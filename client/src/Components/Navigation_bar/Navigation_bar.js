@@ -51,6 +51,10 @@ class Navigation_bar extends Component {
 
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.toggleLogin = this.toggleLogin.bind(this);
+
+    //this.handleChange = this.handleChange.bind(this);
+    //this.handleForgot = this.handleForgot.bind(this);
+    //this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
     const user = localStorage.getItem("user");
