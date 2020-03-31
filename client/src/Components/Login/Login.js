@@ -25,8 +25,7 @@ class Login extends Component {
       password: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-  //this.onUsernameChange = this.onUsernameChange.bind(this);
-  }
+   }
   // componentWillMount(){}
   // componentDidMount(){}
   // componentWillUnmount(){}
@@ -35,12 +34,6 @@ class Login extends Component {
   // shouldComponentUpdate(){}
   // componentWillUpdate(){}
   // componentDidUpdate(){}
-  // onUsernameChange = (username) => {
-  //   this.setState({ 
-  //     isLoggedin: true,
-  //     username: username
-  //   });
-  // }
    handleSubmit= event => {
      event.preventDefault();
      if(this.state.username === null || this.state.username === ""){
@@ -76,7 +69,8 @@ class Login extends Component {
   render() {
     if (this.state.isLoggedin) {
       console.log(this.state.username);
-      localStorage.setItem('user',this.state.username)
+      localStorage.setItem('user',this.state.username);
+      localStorage.setItem('loggedIn',true);
       return <Redirect to='/search'/>      
     }
     return (
