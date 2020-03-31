@@ -50,9 +50,6 @@ class Navigation_bar extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
 
     this.toggleCollapse = this.toggleCollapse.bind(this);
-    this.toggleLogin = this.toggleLogin.bind(this);
-
-
     //this.handleChange = this.handleChange.bind(this);
     //this.handleForgot = this.handleForgot.bind(this);
     //this.handleSubmit = this.handleSubmit.bind(this);
