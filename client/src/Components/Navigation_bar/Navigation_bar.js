@@ -55,18 +55,19 @@ class Navigation_bar extends Component {
     //this.handleChange = this.handleChange.bind(this);
     //this.handleForgot = this.handleForgot.bind(this);
     //this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleLogin = this.toggleLogin.bind(this);
   }
   componentDidMount() {
     const user = localStorage.getItem("user");
     this.setState({
-
-        username: user,
-    })
-};
+      username: user
+    });
+  }
   toggleLogin = () => {
     localStorage.setItem("loggedIn", false);
     localStorage.setItem("user","");
     };
+
   toggleCollapse = () => {
     this.setState({
       isOpen: !this.state.isOpen
