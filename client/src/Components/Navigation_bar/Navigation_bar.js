@@ -68,7 +68,6 @@ class Navigation_bar extends Component {
     localStorage.setItem("loggedIn", false);
     localStorage.setItem("user","");
     };
-
   toggleCollapse = () => {
     this.setState({
       isOpen: !this.state.isOpen
