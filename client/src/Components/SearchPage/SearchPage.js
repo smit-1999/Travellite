@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Select from "react-select";
+import { Redirect } from "react-router-dom";
 import Navigation_bar from "../Navigation_bar";
+import Login from "../Login";
 import "./SearchPage.css";
 import { Button, Jumbotron, ListGroup } from "react-bootstrap";
 import axios from "axios";
@@ -27,7 +29,6 @@ class SearchPage extends Component {
     };
 
     this.requestGroup = this.requestGroup.bind(this);
-
     this.componentDidMount = this.componentDidMount.bind(this);
   }
   componentDidMount() {
@@ -113,6 +114,14 @@ class SearchPage extends Component {
   }
   onChangetime = time => this.setState({ time });
   render() {
+    const loggedIn = localStorage.getItem("loggedIn");
+    if(loggedIn.localeCompare("false")===0){
+      return (
+        <Redirect
+          to="/Login"
+        />
+      );
+    }
     const posts = this.state.posts;
     console.log("Printing posts fetched : ", posts.data);
     return (

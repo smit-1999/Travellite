@@ -37,9 +37,7 @@ class Navigation_bar extends Component {
     };
     this.componentDidMount = this.componentDidMount.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
-    //this.handleChange = this.handleChange.bind(this);
-  //this.handleForgot = this.handleForgot.bind(this);
-  //this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleLogin = this.toggleLogin.bind(this);
   }
   componentDidMount() {
         
@@ -48,6 +46,10 @@ class Navigation_bar extends Component {
         username: user,
     })
 };
+  toggleLogin = () => {
+    localStorage.setItem("loggedIn", false);
+    localStorage.setItem("user","");
+    };
   toggleCollapse = () => {
     this.setState({
       isOpen: !this.state.isOpen
@@ -79,7 +81,7 @@ class Navigation_bar extends Component {
                 <MDBDropdownMenu className="dropdown-default">
                    <MDBDropdownItem href="/profile">Profile</MDBDropdownItem>
                   <MDBDropdownItem href="/account">Account</MDBDropdownItem>
-                  <MDBDropdownItem href="/login">Logout</MDBDropdownItem>  
+    <MDBDropdownItem href="/login" onClick={this.toggleLogin}>Logout</MDBDropdownItem>  
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>
