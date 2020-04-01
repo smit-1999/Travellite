@@ -37,13 +37,7 @@ router.put("/", (req, res) => {
   });
 });
 
-async function addUser({
-  name,
-  email,
-  mob,
-  username,
-  password
-}) {
+async function addUser({ name, email, mob, username, password }) {
   const user = await User.findOne({ username });
   res_object = {
     status: "",
@@ -55,23 +49,23 @@ async function addUser({
     console.log(res_object);
     return res_object;
   } else {
-    User.create(
-      { name, email, mob, username, password },
-      function(err, instance) {
-        if (err) {
-          res_object["status"] = "failure";
-          res_object["message"] = "database error";
-          console.log(res_data["status"] + " " + res_object["message"]);
-          console.log(err);
-          return res_object;
-        } else {
-          res_object["status"] = "1";
-          res_object["message"] = "User added to the database";
-          console.log(res_object);
-          return res_object;
-        }
+    User.create({ name, email, mob, username, password }, function(
+      err,
+      instance
+    ) {
+      if (err) {
+        res_object["status"] = "failure";
+        res_object["message"] = "database error";
+        console.log(res_data["status"] + " " + res_object["message"]);
+        console.log(err);
+        return res_object;
+      } else {
+        res_object["status"] = "1";
+        res_object["message"] = "User added to the database";
+        console.log(res_object);
+        return res_object;
       }
-    );
+    });
   }
 }
 
@@ -80,7 +74,9 @@ router.post("/authentication", authentication);
 function authentication(req, res, next) {
   authenticate(req.body)
     .then(res_obj =>
-      res_obj ? res.json(res_obj) : res.json({ message: "password is incorrect" })
+      res_obj
+        ? res.json(res_obj)
+        : res.json({ message: "password is incorrect" })
     )
     .catch(err => next(err));
 }
@@ -88,22 +84,30 @@ function authentication(req, res, next) {
 async function authenticate({ username, password }) {
   const user = await User.findOne({ username });
   if (!user) {
-    return { username,
-      status: "0",
-      message: "Username not found" };
+    return { username, status: "0", message: "Username not found" };
   } else if (user && !password.localeCompare(user.password)) {
     return {
       username,
-      status:"1",
+      status: "1",
       message: "login succesful"
     };
   } else {
     return {
       username,
-      status : "2",
+      status: "2",
       message: "password incorrect"
     };
   }
 }
+
+router.get("/userDetails", (req, res) => {
+  User.find({ username: req.body.userName }, { _id: 0, requests: 0 }).then(
+    user => {
+      console.log("request to notif router:", req.query);
+      console.log("Resp to notif :", res);
+      return res.json(user);
+    }
+  );
+});
 
 module.exports = router;
