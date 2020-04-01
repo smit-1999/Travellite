@@ -53,11 +53,8 @@ class Navigation_bar extends Component {
       notifs: []
     };
     this.componentDidMount = this.componentDidMount.bind(this);
-
     this.toggleCollapse = this.toggleCollapse.bind(this);
-
     this.getNotification = this.getNotification.bind(this);
-
     //this.handleChange = this.handleChange.bind(this);
     //this.handleForgot = this.handleForgot.bind(this);
     //this.handleSubmit = this.handleSubmit.bind(this);
@@ -65,19 +62,20 @@ class Navigation_bar extends Component {
   }
 
   getNotification = () => {
-    console.log("hyyde");
+    console.log("notif works");
+    const params = {
+      userName: "Saarthak"
+    };
     axios
-      .post(base_url + "/notif/ownerRequests", {
-        userName: "Saarthak"
-      })
-      .then(function(response) {
-        this.setState({ notifs: response.data });
+      .get(base_url + "/notif/ownerRequests", {params})
+      .then(response => {
+        //this.setState({ notifs: response.data });
+        console.log("qwe");
         console.log(response);
       })
       .catch(function(error) {
         console.log(error);
       });
-    console.log(this.state.notifs);
   };
 
   componentDidMount() {
@@ -116,7 +114,7 @@ class Navigation_bar extends Component {
               <MDBNavItem>
                 <MDBNavbarBrand>
                   <strong>
-                    <i className="far fa-bell"></i>
+                    <i className="far fa-bell" onClick = {this.getNotification} ></i>
                   </strong>
                 </MDBNavbarBrand>
               </MDBNavItem>
