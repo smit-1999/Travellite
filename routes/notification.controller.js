@@ -17,7 +17,7 @@ router.get("/ownerRequests", (req, res) => {
     { requester: 1, _id: 0 }
   ).then(notifs => {
     console.log("request to notif router:", req.query);
-    console.log("Resp to notif :", res);
+    console.log(notifs);
     return res.json(notifs);
   });
 });
