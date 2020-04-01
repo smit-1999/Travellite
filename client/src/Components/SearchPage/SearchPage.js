@@ -4,10 +4,11 @@ import { Redirect } from "react-router-dom";
 import Navigation_bar from "../Navigation_bar";
 import Login from "../Login";
 import "./SearchPage.css";
-import { Button, Jumbotron, ListGroup } from "react-bootstrap";
+import { Jumbotron, ListGroup } from "react-bootstrap";
 import axios from "axios";
 import { MDBContainer, MDBRow, MDBCol, MDBJumbotron } from "mdbreact";
 import DatePicker from "react-date-picker";
+import Button from "react-bootstrap/Button";
 import { FormGroup, Label, FormText } from "reactstrap";
 //import DatePicker from "reactstrap-date-picker";
 const base_url = require("../../config/keys").base_uri;
@@ -26,6 +27,7 @@ class SearchPage extends Component {
       destination: null,
       time: "10:00",
       posts: []
+      // disabled: false
     };
 
     this.requestGroup = this.requestGroup.bind(this);
@@ -39,6 +41,8 @@ class SearchPage extends Component {
   }
 
   requestGroup = (postid, postowner) => {
+    // if (this.state.disabled) this.setState({ disabled: !this.state.disabled });
+    // this.setState({ disabled: true });
     axios
       .post(base_url + "/notif/add", {
         postOwner: postowner,
@@ -65,7 +69,7 @@ class SearchPage extends Component {
       .catch(function(error) {
         console.log(error);
       });
-    alert("Your request has been submitted");
+    //alert("Your request has been submitted");
   };
 
   submitRequest = () => {
@@ -82,10 +86,19 @@ class SearchPage extends Component {
     } else if (this.state.destination === null || this.state.source === null) {
       alert("Please fill in the required fields");
     } else {
+      let datObject = new Date().setHours(0, 0, 0, 0);
+      datObject = this.state.date;
+      let paramDate =
+        datObject.getDate() +
+        "-" +
+        (datObject.getMonth() + 1) +
+        "-" +
+        datObject.getFullYear();
+      console.log("Date for parameter", paramDate);
       const params = {
         sourceLocation: this.state.source,
-        destinationLocation: this.state.destination
-        // date: this.state.date
+        destinationLocation: this.state.destination,
+        date: paramDate
       };
       console.log("Printing date selected", this.state.date);
       //console.log(this.state);
@@ -201,6 +214,7 @@ class SearchPage extends Component {
             return (
               <ListGroup.Item key={_id}>
                 <h2>{sourceLocation}</h2>
+                <h3> {_id} </h3>
                 <p>{destinationLocation}</p>
                 <p>{isFilled}</p>
                 <p>{date}</p>
@@ -210,9 +224,13 @@ class SearchPage extends Component {
                 <Button
                   className="submit"
                   onClick={() => this.requestGroup(_id, postOwner)}
+                  // disabled={this.state.disabled}
+                  variant="primary"
                 >
                   Request
+                  {/* {this.state.disabled ? "Requested" : "Request"} */}
                 </Button>
+
                 <hr />
               </ListGroup.Item>
             );
