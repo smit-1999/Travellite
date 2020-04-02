@@ -11,9 +11,10 @@ router.get("/", (req, res) => {
     return res.json(notifs);
   });
 });
-router.get("/ownerRequests", (req, res) => {
+router.get("/ownerRequests", async (req, res) => {
+  console.log(req.query);
   Notification.find(
-    { postOwner: req.body.userName },
+    { postOwner: req.query.userName },
     { requester: 1, _id: 0 }
   ).then(notifs => {
     console.log("request to notif router:", req.query);
