@@ -1,0 +1,10 @@
+body, html {
+    /* height: 100%; */
+    }
+    .bg {
+        background:url(../../images/taxi2.jpg) no-repeat center bottom;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }

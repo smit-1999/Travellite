@@ -6,6 +6,7 @@ import "./App.css";
 import SearchPage from "./Components/SearchPage";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
+import HomePage from "./Components/HomePage";
 import Profile from "./Components/Profile";
 import Account from "./Components/Account";
 import AboutPage from "./Components/AboutUsPage";
@@ -53,9 +54,7 @@ class App extends Component {
             <Route path="/search" component={SearchPage}/>
             <Route path="/about" component={AboutPage} />
             <Route path="/addPost" component={AddPost} />
-            <Route exact path="/">
-              {" "}
-              This is the index page.Select /x to go to page x
+            <Route exact path="/"component = {HomePage}>              
             </Route>
           </Switch>
         </div>
