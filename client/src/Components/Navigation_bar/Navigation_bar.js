@@ -11,7 +11,10 @@ import {
   MDBDropdownToggle,
   MDBDropdownMenu,
   MDBDropdownItem,
-  MDBIcon
+  MDBIcon,
+  MDBPopover,
+  MDBPopoverHeader,
+  MDBPopoverBody
 } from "mdbreact";
 
 import { Button, Jumbotron, ListGroup } from "react-bootstrap";
@@ -61,12 +64,12 @@ class Navigation_bar extends Component {
     this.toggleLogin = this.toggleLogin.bind(this);
   }
 
-  getNotification = () => {
+  getNotification = async () => {
     console.log("notif works");
     const params = {
       userName: "Saarthak"
     };
-    axios
+    await axios
       .get(base_url + "/notif/ownerRequests", {params})
       .then(response => {
         //this.setState({ notifs: response.data });
@@ -112,11 +115,19 @@ class Navigation_bar extends Component {
             </MDBNavbarNav>
             <MDBNavbarNav right>
               <MDBNavItem>
-                <MDBNavbarBrand>
-                  <strong>
-                    <i className="far fa-bell" onClick = {this.getNotification} ></i>
-                  </strong>
-                </MDBNavbarBrand>
+              <MDBPopover placement="bottom" popover clickable id="popper3" >
+                  <MDBNavbarBrand>
+                    <strong>
+                      <i className="far fa-bell" onClick = {this.getNotification} ></i>
+                    </strong>
+                  </MDBNavbarBrand>
+                  <div>
+                    <MDBPopoverHeader>popover on bottom</MDBPopoverHeader>
+                    <MDBPopoverBody>
+                      notifs
+                    </MDBPopoverBody>
+                </div>
+              </MDBPopover>
               </MDBNavItem>
               <MDBNavItem>
                 <MDBDropdown>
