@@ -100,14 +100,15 @@ async function authenticate({ username, password }) {
   }
 }
 
-router.get("/userDetails", (req, res) => {
-  User.find({ username: req.body.userName }, { _id: 0, requests: 0 }).then(
-    user => {
-      console.log("request to notif router:", req.query);
+router.get("/userDetails", async (req, res) => {
+  console.log(req.query);
+  User.find({ username: req.query.userName }, { _id: 0, requests: 0 })
+    .then(user => {
+      console.log("request to user router:", req.query);
       console.log("Resp to notif :", res);
       return res.json(user);
-    }
-  );
+    })
+    .catch(error);
 });
 
 module.exports = router;

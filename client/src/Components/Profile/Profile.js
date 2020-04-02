@@ -21,21 +21,26 @@ class Profile extends Component {
   // componentWillUpdate(){}
   // componentDidUpdate(){}
 
-  getUserDetails = () => {
-    console.log("bhkm");
+  getUserDetails = async () => {
+    console.log("get user details works");
     const params = {
-      userName: "Saarthak"
+      userName: "abc"
     };
-    axios
-      .get(base_url + "/user/userDetails", { params })
-      .then(function(response) {
-        this.setState({ userDetails: response.data });
+    //const userName = "Saarthak";
+    await axios
+      .get(base_url + "/user/userDetails", {
+        params
+      })
+      .then(response => {
+        this.setState({ notifs: response.data });
+        console.log("inside");
+        //console.log(params);
         console.log(response);
       })
       .catch(function(error) {
         console.log(error);
       });
-    console.log(this.state.userDetails);
+    //console.log(this.state.userDetails);
   };
 
   componentDidMount() {
@@ -51,7 +56,12 @@ class Profile extends Component {
     if (loggedIn.localeCompare("false") === 0) {
       return <Redirect to="/Login" />;
     }
-    return <div>Profile works</div>;
+    return (
+      <div>
+        Profile works
+        <Button onClick={this.getUserDetails}>Get User Details</Button>
+      </div>
+    );
   }
 }
 

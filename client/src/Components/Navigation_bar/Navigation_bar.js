@@ -70,7 +70,7 @@ class Navigation_bar extends Component {
       userName: "Saarthak"
     };
     await axios
-      .get(base_url + "/notif/ownerRequests", {params})
+      .get(base_url + "/notif/ownerRequests", { params })
       .then(response => {
         //this.setState({ notifs: response.data });
         console.log("qwe");
@@ -115,19 +115,20 @@ class Navigation_bar extends Component {
             </MDBNavbarNav>
             <MDBNavbarNav right>
               <MDBNavItem>
-              <MDBPopover placement="bottom" popover clickable id="popper3" >
+                <MDBPopover placement="bottom" popover clickable id="popper3">
                   <MDBNavbarBrand>
                     <strong>
-                      <i className="far fa-bell" onClick = {this.getNotification} ></i>
+                      <i
+                        className="far fa-bell"
+                        onClick={this.getNotification}
+                      ></i>
                     </strong>
                   </MDBNavbarBrand>
                   <div>
                     <MDBPopoverHeader>popover on bottom</MDBPopoverHeader>
-                    <MDBPopoverBody>
-                      notifs
-                    </MDBPopoverBody>
-                </div>
-              </MDBPopover>
+                    <MDBPopoverBody>notifs</MDBPopoverBody>
+                  </div>
+                </MDBPopover>
               </MDBNavItem>
               <MDBNavItem>
                 <MDBDropdown>
