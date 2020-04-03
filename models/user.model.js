@@ -21,6 +21,9 @@ const user = new Schema({
   },
   requests: {
     type: Array
+  },
+  confirmed: {
+    type: Array
   }
 });
 

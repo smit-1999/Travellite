@@ -2,8 +2,19 @@
  * Navigation_bar css File
 */
 
+body{
+  background: #dfecff;
+  color: #7f8db0;
+}
+
+a{
+   color: #7f8db0;
+}
 .Navigation_bar {
   /* propertys here */
 }
 .notifLogo {
+}
+.p{
+  font-size: 10px;
 }

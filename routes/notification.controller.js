@@ -3,6 +3,8 @@ const router = express.Router();
 
 //Item model
 const Notification = require("../models/notif.model");
+const User = require("../models/user.model");
+const Post = require("../models/post.model");
 
 router.get("/", (req, res) => {
   Notification.find().then(notifs => {
@@ -15,13 +17,54 @@ router.get("/ownerRequests", async (req, res) => {
   console.log(req.query);
   Notification.find(
     { postOwner: req.query.userName },
-    { requester: 1, _id: 0 }
+    { requester: 1, _id: 0, postId: 1 }
   ).then(notifs => {
     console.log("request to notif router:", req.query);
     console.log(notifs);
     return res.json(notifs);
   });
 });
+
+var changeStatus = async function(req, res, next) {
+  Notification.updateOne(
+    { requester: req.body.requestOwner, postId: req.body.postId },
+    { $set: { typeofNotif: "accepted" } }
+  ).then(notifs => {
+    console.log("Request accepted:");
+    console.log(notifs);
+    next();
+    //return res.json(notifs);
+  });
+};
+
+var addMemberToPost = async function(req, res, next) {
+  Post.updateOne(
+    { _id: req.body.postId },
+    { $push: { members: req.body.requestOwner } }
+  ).then(notifs => {
+    console.log("Added to members list in post");
+    console.log(notifs);
+    next();
+    //return res.json(notifs);
+  });
+};
+
+router.put(
+  "/ownerRequests/accept",
+  [changeStatus, addMemberToPost],
+  async (req, res) => {
+    //console.log(requestOwner);
+    console.log(req.query);
+    User.updateOne(
+      { username: req.body.requestOwner },
+      { $push: { confirmed: req.body.postOwner } }
+    ).then(notifs => {
+      console.log("Confirmed", req.query);
+      console.log(notifs);
+      return res.json(notifs);
+    });
+  }
+);
 
 router.post("/add", (req, res) => {
   const newNotif = new Notification(req.body);

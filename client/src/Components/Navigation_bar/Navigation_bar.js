@@ -70,10 +70,35 @@ class Navigation_bar extends Component {
       userName: "Saarthak"
     };
     await axios
-      .get(base_url + "/notif/ownerRequests", {params})
+      .get(base_url + "/notif/ownerRequests", { params })
       .then(response => {
         //this.setState({ notifs: response.data });
         console.log("qwe");
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
+  acceptRequest = async () => {
+    console.log("accept works");
+    // const params = {
+    //   requestOwner: "amit12", //Here the name of the requester has to be used
+    //   postId: "5e86f194dda4280d7159e5c0", //Here the postId corresponding to the request has to be used
+    //   postOwner: "saksham12" //Here the username from the state has to be used
+    //   //Both postId and requestOwner values are obtained when using getNotification Function
+    // };
+    await axios
+      .put(base_url + "/notif/ownerRequests/accept", {
+        requestOwner: "amit12", //Here the name of the requester has to be used
+        postId: "5e86f194dda4280d7159e5c0", //Here the postId corresponding to the request has to be used
+        postOwner: "saksham12" //Here the username from the state has to be used
+        //Both postId and requestOwner values are obtained when using getNotification Function
+      })
+      .then(response => {
+        //this.setState({ notifs: response.data });
+        console.log("inside accept");
         console.log(response);
       })
       .catch(function(error) {
@@ -115,19 +140,20 @@ class Navigation_bar extends Component {
             </MDBNavbarNav>
             <MDBNavbarNav right>
               <MDBNavItem>
-              <MDBPopover placement="bottom" popover clickable id="popper3" >
+                <MDBPopover placement="bottom" popover clickable id="popper3">
                   <MDBNavbarBrand>
                     <strong>
-                      <i className="far fa-bell" onClick = {this.getNotification} ></i>
+                      <i
+                        className="far fa-bell"
+                        onClick={this.getNotification}
+                      ></i>
                     </strong>
                   </MDBNavbarBrand>
                   <div>
                     <MDBPopoverHeader>popover on bottom</MDBPopoverHeader>
-                    <MDBPopoverBody>
-                      notifs
-                    </MDBPopoverBody>
-                </div>
-              </MDBPopover>
+                    <MDBPopoverBody>notifs</MDBPopoverBody>
+                  </div>
+                </MDBPopover>
               </MDBNavItem>
               <MDBNavItem>
                 <MDBDropdown>
@@ -151,6 +177,7 @@ class Navigation_bar extends Component {
             </MDBNavbarNav>
           </MDBCollapse>
         </MDBNavbar>
+        <Button onClick={this.acceptRequest}>Accept test</Button>
       </div>
     );
   }
