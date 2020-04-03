@@ -31,7 +31,7 @@ var changeStatus = async function(req, res, next) {
     { $set: { typeofNotif: "accepted" } }
   ).then(notifs => {
     console.log("Request accepted:");
-    //console.log(notifs);
+    console.log(notifs);
     next();
     //return res.json(notifs);
   });
@@ -43,7 +43,7 @@ var addMemberToPost = async function(req, res, next) {
     { $push: { members: req.body.requestOwner } }
   ).then(notifs => {
     console.log("Added to members list in post");
-    //console.log(notifs);
+    console.log(notifs);
     next();
     //return res.json(notifs);
   });
@@ -59,7 +59,7 @@ router.put(
       { username: req.body.requestOwner },
       { $push: { confirmed: req.body.postOwner } }
     ).then(notifs => {
-      console.log("Request accepted:", req.query);
+      console.log("Confirmed", req.query);
       console.log(notifs);
       return res.json(notifs);
     });
