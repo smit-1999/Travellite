@@ -75,7 +75,6 @@ class Profile extends Component {
     }
     return (
       <div>
-<<<<<<< HEAD
         <MDBContainer className="mt-5 text-center">
           <MDBRow>
             <MDBCol>
@@ -117,10 +116,6 @@ class Profile extends Component {
             </MDBCol>
           </MDBRow>
         </MDBContainer>
-=======
-        Profile works
-        <Button onClick={this.getUserDetails}>Get User Details</Button>
->>>>>>> 658dc8d7614c1d77fc59fda4f7b7d450ab0745dc
       </div>
     );
   }
