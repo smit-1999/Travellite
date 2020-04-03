@@ -9,10 +9,10 @@ const post = new Schema({
   members: {
     type: Array
   },
-  startLocation: {
+  sourceLocation: {
     type: String
   },
-  endLocation: {
+  destinationLocation: {
     type: String
   },
   date: {
