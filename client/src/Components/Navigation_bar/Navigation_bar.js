@@ -16,7 +16,7 @@ import {
   MDBPopoverHeader,
   MDBPopoverBody
 } from "mdbreact";
-import "../Navigation_bar/Navigation_bar.css"
+
 import { Button, Jumbotron, ListGroup } from "react-bootstrap";
 import axios from "axios";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -72,8 +72,33 @@ class Navigation_bar extends Component {
     await axios
       .get(base_url + "/notif/ownerRequests", { params })
       .then(response => {
-        this.setState({ notifs: response.data });
+        //this.setState({ notifs: response.data });
         console.log("qwe");
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
+  acceptRequest = async () => {
+    console.log("accept works");
+    // const params = {
+    //   requestOwner: "amit12", //Here the name of the requester has to be used
+    //   postId: "5e86f194dda4280d7159e5c0", //Here the postId corresponding to the request has to be used
+    //   postOwner: "saksham12" //Here the username from the state has to be used
+    //   //Both postId and requestOwner values are obtained when using getNotification Function
+    // };
+    await axios
+      .put(base_url + "/notif/ownerRequests/accept", {
+        requestOwner: "amit12", //Here the name of the requester has to be used
+        postId: "5e86f194dda4280d7159e5c0", //Here the postId corresponding to the request has to be used
+        postOwner: "saksham12" //Here the username from the state has to be used
+        //Both postId and requestOwner values are obtained when using getNotification Function
+      })
+      .then(response => {
+        //this.setState({ notifs: response.data });
+        console.log("inside accept");
         console.log(response);
       })
       .catch(function(error) {
@@ -100,7 +125,6 @@ class Navigation_bar extends Component {
     });
   };
   render() {
-    const notifs = this.state.notifs;
     return (
       <div>
         <MDBNavbar color="black" dark expand="md">
@@ -115,35 +139,22 @@ class Navigation_bar extends Component {
               </MDBNavItem>
             </MDBNavbarNav>
             <MDBNavbarNav right>
-              
               <MDBNavItem>
-
-                <MDBDropdown dropleft>
-                  <MDBDropdownToggle nav caret>
-                    <MDBIcon icon="far fa-bell" onClick = {this.getNotification}/>
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu className="dropdown-default">
-                    <MDBDropdownItem header><strong>Notifications</strong></MDBDropdownItem>
-                    <MDBDropdownItem>
-                      <ListGroup>
-                        {notifs.map(notif => {
-                        const { 
-                        requester,_id
-                        } = notif;
-                        // console.log(_id, sourceLocation, destinationLocation);
-                        return (
-                        <ListGroup.Item key={_id}>
-                        <p className="p">{requester} has requested to join with you in a ride</p>
-                        <hr />                
-                      </ListGroup.Item>              
-                        );
-                        })}
-                      </ListGroup>
-                    </MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
+                <MDBPopover placement="bottom" popover clickable id="popper3">
+                  <MDBNavbarBrand>
+                    <strong>
+                      <i
+                        className="far fa-bell"
+                        onClick={this.getNotification}
+                      ></i>
+                    </strong>
+                  </MDBNavbarBrand>
+                  <div>
+                    <MDBPopoverHeader>popover on bottom</MDBPopoverHeader>
+                    <MDBPopoverBody>notifs</MDBPopoverBody>
+                  </div>
+                </MDBPopover>
               </MDBNavItem>
-
               <MDBNavItem>
                 <MDBDropdown>
                   <MDBDropdownToggle nav caret>
@@ -166,36 +177,9 @@ class Navigation_bar extends Component {
             </MDBNavbarNav>
           </MDBCollapse>
         </MDBNavbar>
+        <Button onClick={this.acceptRequest}>Accept test</Button>
       </div>
     );
   }
 }
 export default Navigation_bar;
-
-
-
-
- 
-
-
-// <MDBNavbarBrand>
-//                     <strong>
-//                       <i className=""  ></i>
-//                     </strong>
-//               </MDBNavbarBrand>
-
-
-
-
-
-// <Button
-//                   className="submit"
-//                   onClick={() => this.requestGroup(_id, postOwner)}
-//                   // disabled={this.state.disabled}
-//                   variant="primary"
-//                 >
-//                   Request
-//                   {/* {this.state.disabled ? "Requested" : "Request"} */}
-//                 </Button>
-
-//                 <hr />
