@@ -185,34 +185,23 @@ class Navigation_bar extends Component {
                     </MDBDropdownItem>
                     <MDBDropdownItem>
                       <ListGroup>
-                        {notifs.map((notif) => {
-                          const { requester, postId } = notif;
-                          // console.log(_id, sourceLocation, destinationLocation);
-                          return (
-                            <ListGroup.Item key={postId}>
-                              <p className="p">
-                                {requester} has requested to join with you in a
-                                ride
-                              </p>
-                              <hr />
-                              <MDBBtn
-                                color="blue"
-                                className="notifButton"
-                                onClick={() => {
-                                  console.log(postId);
-                                  this.acceptRequest(requester, postId);
-                                }}
-                              >
-                                <i class="fas fa-check"></i>
-                              </MDBBtn>
-                              <MDBBtn color="red" className="notifButton" onClick={() => {
-                                  console.log(postId);
-                                  this.rejectRequest(requester, postId);
-                                }}>
-                                <i class="fas fa-times"></i>
-                              </MDBBtn>
-                            </ListGroup.Item>
-                          );
+                        {notifs.map(notif => {
+                        const { 
+                        requester,_id
+                        } = notif;
+                        // console.log(_id, sourceLocation, destinationLocation);
+                        return (
+                        <ListGroup.Item key={_id}>
+                        <p className="p">{requester} has requested to join with you in a ride</p>
+                        <hr style={{  margin: "5px" }}/>
+                        <MDBBtn color = "blue" className="notifButton">
+                        <i class="fas fa-check"></i>
+                        </MDBBtn>
+                        <MDBBtn color ="red" className="notifButton">
+                        <i class="fas fa-times"></i>
+                          </MDBBtn>
+                      </ListGroup.Item>              
+                        );
                         })}
                       </ListGroup>
                     </MDBDropdownItem>
