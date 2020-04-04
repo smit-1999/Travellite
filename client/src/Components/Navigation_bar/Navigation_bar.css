@@ -16,5 +16,11 @@ a{
 .notifLogo {
 }
 .p{
-  font-size: 10px;
+  font-size: 12px;
+}
+.notifButton {
+  padding: .1rem 0.5rem;
+}
+.notifDropdown{
+  width : 350px
 }

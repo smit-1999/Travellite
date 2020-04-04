@@ -14,13 +14,14 @@ import {
   MDBIcon,
   MDBPopover,
   MDBPopoverHeader,
-  MDBPopoverBody
+  MDBPopoverBody,
+  MDBBtn
 } from "mdbreact";
 
 import { Button, Jumbotron, ListGroup } from "react-bootstrap";
 import axios from "axios";
 import { BrowserRouter as Router } from "react-router-dom";
-
+import "../Navigation_bar/Navigation_bar.css"
 // import ReactDOM from "react-dom";
 // import { Link } from "react-router-dom";
 // import { Route } from "react-router";
@@ -72,7 +73,7 @@ class Navigation_bar extends Component {
     await axios
       .get(base_url + "/notif/ownerRequests", { params })
       .then(response => {
-        //this.setState({ notifs: response.data });
+        this.setState({ notifs: response.data });
         console.log("qwe");
         console.log(response);
       })
@@ -125,6 +126,7 @@ class Navigation_bar extends Component {
     });
   };
   render() {
+    const notifs = this.state.notifs;
     return (
       <div>
         <MDBNavbar color="black" dark expand="md">
@@ -140,20 +142,36 @@ class Navigation_bar extends Component {
             </MDBNavbarNav>
             <MDBNavbarNav right>
               <MDBNavItem>
-                <MDBPopover placement="bottom" popover clickable id="popper3">
-                  <MDBNavbarBrand>
-                    <strong>
-                      <i
-                        className="far fa-bell"
-                        onClick={this.getNotification}
-                      ></i>
-                    </strong>
-                  </MDBNavbarBrand>
-                  <div>
-                    <MDBPopoverHeader>popover on bottom</MDBPopoverHeader>
-                    <MDBPopoverBody>notifs</MDBPopoverBody>
-                  </div>
-                </MDBPopover>
+              <MDBDropdown dropleft>
+                  <MDBDropdownToggle nav caret>
+                    <MDBIcon icon="far fa-bell" onClick = {this.getNotification}/>
+                  </MDBDropdownToggle>
+                  <MDBDropdownMenu className="notifDropdown">
+                    <MDBDropdownItem header><strong>Notifications</strong></MDBDropdownItem>
+                    <MDBDropdownItem>
+                      <ListGroup>
+                        {notifs.map(notif => {
+                        const { 
+                        requester,_id
+                        } = notif;
+                        // console.log(_id, sourceLocation, destinationLocation);
+                        return (
+                        <ListGroup.Item key={_id}>
+                        <p className="p">{requester} has requested to join with you in a ride</p>
+                        <hr />
+                        <MDBBtn color = "blue" className="notifButton">
+                        <i class="fas fa-check"></i>
+                        </MDBBtn>
+                        <MDBBtn color ="red" className="notifButton">
+                        <i class="fas fa-times"></i>
+                          </MDBBtn>
+                      </ListGroup.Item>              
+                        );
+                        })}
+                      </ListGroup>
+                    </MDBDropdownItem>
+                  </MDBDropdownMenu>
+                </MDBDropdown>
               </MDBNavItem>
               <MDBNavItem>
                 <MDBDropdown>
