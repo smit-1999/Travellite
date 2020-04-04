@@ -17,10 +17,12 @@ a{
 }
 .p{
   font-size: 12px;
+  margin : 1px;
 }
 .notifButton {
   padding: .1rem 0.5rem;
+  margin : 1px;
 }
 .notifDropdown{
-  width : 350px
+  width : 350px;
 }
