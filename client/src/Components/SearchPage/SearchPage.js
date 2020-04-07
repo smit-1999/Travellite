@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Select from "react-select";
 import { Redirect } from "react-router-dom";
 import Navigation_bar from "../Navigation_bar";
+import AddPost from "../AddPost";
 import Login from "../Login";
 import "./SearchPage.css";
 import { Jumbotron, ListGroup } from "react-bootstrap";
@@ -15,7 +16,7 @@ const base_url = require("../../config/keys").base_uri;
 const locationOptions = [
   { value: "airport", label: "Airport" },
   { value: "secunderabad", label: "Secunderabad" },
-  { value: "campus", label: "BPHC" }
+  { value: "campus", label: "BPHC" },
 ];
 class SearchPage extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class SearchPage extends Component {
       source: null,
       destination: null,
       time: "10:00",
-      posts: []
+      posts: [],
       // disabled: false
     };
 
@@ -36,7 +37,7 @@ class SearchPage extends Component {
   componentDidMount() {
     const user = localStorage.getItem("user");
     this.setState({
-      userName: user
+      userName: user,
     });
   }
 
@@ -48,7 +49,7 @@ class SearchPage extends Component {
         postOwner: postowner,
         postId: postid,
         typeofNotif: "request",
-        requester: this.state.userName
+        requester: this.state.userName,
       })
       .then(function(response) {
         console.log(response);
@@ -61,7 +62,7 @@ class SearchPage extends Component {
     axios
       .put(base_url + "/user", {
         userId: this.state.userName,
-        postId: postid
+        postId: postid,
       })
       .then(function(response) {
         console.log(response);
@@ -98,15 +99,15 @@ class SearchPage extends Component {
       const params = {
         sourceLocation: this.state.source,
         destinationLocation: this.state.destination,
-        date: paramDate
+        date: paramDate,
       };
       console.log("Printing date selected", this.state.date);
       //console.log(this.state);
       axios
         .get(base_url + "/post", { params })
-        .then(response => {
+        .then((response) => {
           this.setState({
-            posts: response.data
+            posts: response.data,
           });
           console.log("Search response received", this.state.posts);
         })
@@ -115,7 +116,7 @@ class SearchPage extends Component {
         });
     }
   };
-  onChange = date => {
+  onChange = (date) => {
     this.setState({ date });
     console.log(this.state.date);
   };
@@ -125,21 +126,18 @@ class SearchPage extends Component {
     //   formattedValue: formattedValue // Formatted String, ex: "11/19/2016"
     // });
   }
-  onChangetime = time => this.setState({ time });
+  onChangetime = (time) => this.setState({ time });
   render() {
     const loggedIn = localStorage.getItem("loggedIn");
-    if(loggedIn.localeCompare("false")===0){
-      return (
-        <Redirect
-          to="/Login"
-        />
-      );
+    if (loggedIn.localeCompare("false") === 0) {
+      return <Redirect to="/Login" />;
     }
     const posts = this.state.posts;
     console.log("Printing posts fetched : ", posts.data);
     return (
       <div>
         <Navigation_bar />
+        <AddPost />
         <MDBContainer className="mt-5 text-center">
           <MDBRow>
             <MDBCol>
@@ -152,9 +150,9 @@ class SearchPage extends Component {
                     <Select
                       options={locationOptions}
                       defaultValue={{ label: "Source..." }}
-                      onChange={e => {
+                      onChange={(e) => {
                         this.setState({
-                          source: e.label
+                          source: e.label,
                         });
                       }}
                     />
@@ -166,9 +164,9 @@ class SearchPage extends Component {
                     <Select
                       options={locationOptions}
                       defaultValue={{ label: "Destination..." }}
-                      onChange={e => {
+                      onChange={(e) => {
                         this.setState({
-                          destination: e.label
+                          destination: e.label,
                         });
                       }}
                     />
@@ -201,14 +199,14 @@ class SearchPage extends Component {
           </MDBRow>
         </MDBContainer>
         <ListGroup>
-          {posts.map(post => {
+          {posts.map((post) => {
             const {
               _id,
               sourceLocation,
               destinationLocation,
               isFilled,
               date,
-              postOwner
+              postOwner,
             } = post;
             // console.log(_id, sourceLocation, destinationLocation);
             return (

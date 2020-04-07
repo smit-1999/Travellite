@@ -15,13 +15,13 @@ import {
   MDBPopover,
   MDBPopoverHeader,
   MDBPopoverBody,
-  MDBBtn
+  MDBBtn,
 } from "mdbreact";
 
 import { Button, Jumbotron, ListGroup } from "react-bootstrap";
 import axios from "axios";
 import { BrowserRouter as Router } from "react-router-dom";
-import "../Navigation_bar/Navigation_bar.css"
+import "../Navigation_bar/Navigation_bar.css";
 // import ReactDOM from "react-dom";
 // import { Link } from "react-router-dom";
 // import { Route } from "react-router";
@@ -41,7 +41,7 @@ import {
   // DropdownMenu,
   // DropdownItem,
   // NavbarText,
-  Container
+  Container,
 } from "reactstrap";
 import { Dropdown } from "react-bootstrap";
 import { DropdownDivider } from "react-bootstrap/Dropdown";
@@ -54,7 +54,7 @@ class Navigation_bar extends Component {
     this.state = {
       username: "",
       isOpen: false,
-      notifs: []
+      notifs: [],
     };
     this.componentDidMount = this.componentDidMount.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
@@ -68,11 +68,11 @@ class Navigation_bar extends Component {
   getNotification = async () => {
     console.log("notif works");
     const params = {
-      userName: "Saarthak"
+      userName: "Saarthak",
     };
     await axios
       .get(base_url + "/notif/ownerRequests", { params })
-      .then(response => {
+      .then((response) => {
         this.setState({ notifs: response.data });
         console.log("qwe");
         console.log(response);
@@ -94,10 +94,10 @@ class Navigation_bar extends Component {
       .put(base_url + "/notif/ownerRequests/accept", {
         requestOwner: "amit12", //Here the name of the requester has to be used
         postId: "5e86f194dda4280d7159e5c0", //Here the postId corresponding to the request has to be used
-        postOwner: "saksham12" //Here the username from the state has to be used
+        postOwner: "saksham12", //Here the username from the state has to be used
         //Both postId and requestOwner values are obtained when using getNotification Function
       })
-      .then(response => {
+      .then((response) => {
         //this.setState({ notifs: response.data });
         console.log("inside accept");
         console.log(response);
@@ -110,7 +110,7 @@ class Navigation_bar extends Component {
   componentDidMount() {
     const user = localStorage.getItem("user");
     this.setState({
-      username: user
+      username: user,
     });
     console.log("heelo");
   }
@@ -122,7 +122,7 @@ class Navigation_bar extends Component {
 
   toggleCollapse = () => {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
     });
   };
   render() {
@@ -142,31 +142,37 @@ class Navigation_bar extends Component {
             </MDBNavbarNav>
             <MDBNavbarNav right>
               <MDBNavItem>
-              <MDBDropdown dropleft>
+                <MDBDropdown dropleft>
                   <MDBDropdownToggle nav caret>
-                    <MDBIcon icon="far fa-bell" onClick = {this.getNotification}/>
+                    <MDBIcon
+                      icon="far fa-bell"
+                      onClick={this.getNotification}
+                    />
                   </MDBDropdownToggle>
                   <MDBDropdownMenu className="notifDropdown">
-                    <MDBDropdownItem header><strong>Notifications</strong></MDBDropdownItem>
+                    <MDBDropdownItem header>
+                      <strong>Notifications</strong>
+                    </MDBDropdownItem>
                     <MDBDropdownItem>
                       <ListGroup>
-                        {notifs.map(notif => {
-                        const { 
-                        requester,_id
-                        } = notif;
-                        // console.log(_id, sourceLocation, destinationLocation);
-                        return (
-                        <ListGroup.Item key={_id}>
-                        <p className="p">{requester} has requested to join with you in a ride</p>
-                        <hr />
-                        <MDBBtn color = "blue" className="notifButton">
-                        <i class="fas fa-check"></i>
-                        </MDBBtn>
-                        <MDBBtn color ="red" className="notifButton">
-                        <i class="fas fa-times"></i>
-                          </MDBBtn>
-                      </ListGroup.Item>              
-                        );
+                        {notifs.map((notif) => {
+                          const { requester, _id } = notif;
+                          // console.log(_id, sourceLocation, destinationLocation);
+                          return (
+                            <ListGroup.Item key={_id}>
+                              <p className="p">
+                                {requester} has requested to join with you in a
+                                ride
+                              </p>
+                              <hr />
+                              <MDBBtn color="blue" className="notifButton">
+                                <i class="fas fa-check"></i>
+                              </MDBBtn>
+                              <MDBBtn color="red" className="notifButton">
+                                <i class="fas fa-times"></i>
+                              </MDBBtn>
+                            </ListGroup.Item>
+                          );
                         })}
                       </ListGroup>
                     </MDBDropdownItem>
@@ -195,7 +201,7 @@ class Navigation_bar extends Component {
             </MDBNavbarNav>
           </MDBCollapse>
         </MDBNavbar>
-        <Button onClick={this.acceptRequest}>Accept test</Button>
+        {/* <Button onClick={this.acceptRequest}>Accept test</Button> */}
       </div>
     );
   }
