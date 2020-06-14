@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import './AboutUsPage.css';
 import Navigation_bar from "../Navigation_bar";
+const smit = require("../../images/smit.jpg");
+const shikhar = require("../../images/shikhar.jpg");
+const saarthak = require("../../images/saarthak.jpg");
+const dhruv = require("../../images/dhruv.JPG");
 class AboutUsPage extends Component {
   // constructor(props){
     // super(props);
@@ -23,92 +27,53 @@ class AboutUsPage extends Component {
       <div class="container my-5">
         <section class="team-section text-center dark-grey-text">
           <h3 class="font-weight-bold pb-2 mb-4">Our amazing Scrum team</h3>
-            <p class="text-muted w-responsive mx-auto mb-5">About team software engineering project team blahblah</p>
+          <h4 class="font-weight-bold pb-2 mb-4">Travellite</h4>
+            <p class="text-muted w-responsive mx-auto mb-5">Team T15 </p>
               <div class="row">
                 <div class="col-lg-3 col-md-6 mb-4">
                   <div class="avatar mx-auto">
-                    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(20).jpg" class="rounded-circle z-depth-1"
+                    <img src={smit} class="rounded-circle z-depth-1 w-100"
                     alt="Sample avatar"></img>
                   </div>
                   <h5 class="font-weight-bold mt-4 mb-3">Smit Shah</h5>
                   <p class="text-uppercase blue-text"><strong>Product Owner</strong></p>
-      <p class="grey-text">email</p>
-      <p class="grey-text">mobile</p>
-      <ul class="list-unstyled mb-0">
-        <a class="p-2 fa-lg fb-ic">
-          <i class="fab fa-facebook-f blue-text"> </i>
-        </a>
-        <a class="p-2 fa-lg ins-ic">
-          <i class="fab fa-instagram blue-text"> </i>
-        </a>
-        <a class="p-2 fa-lg ins-ic">
-          <i class="fab fa-github blue-text"> </i>
-        </a>
-      </ul>
+      <p class="grey-text">smitshah1999@gmail.com</p>
+      <p class="grey-text">8369785044</p>
+      
     </div>
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="avatar mx-auto">
-        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(3).jpg" class="rounded-circle z-depth-1"
+        <img src={shikhar} class="rounded-circle z-depth-1 w-100"
           alt="Sample avatar"></img>
       </div>
       <h5 class="font-weight-bold mt-4 mb-3">Shikhar Dhawale</h5>
       <p class="text-uppercase blue-text"><strong>Scrum Master</strong></p>
       <p class="grey-text">shikhar.dhawale@gmail.com</p>
       <p class="grey-text">9619733480</p>
-      <ul class="list-unstyled mb-0">
-        <a class="p-2 fa-lg fb-ic">
-          <i class="fab fa-facebook-f blue-text"> </i>
-        </a>
-        <a class="p-2 fa-lg ins-ic">
-          <i class="fab fa-instagram blue-text"> </i>
-        </a>
-        <a class="p-2 fa-lg ins-ic">
-          <i class="fab fa-github blue-text"> </i>
-        </a>
-      </ul>
+      
     </div>
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="avatar mx-auto">
-        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" class="rounded-circle z-depth-1"
+        <img src={saarthak} class="rounded-circle z-depth-1 w-100"
           alt="Sample avatar"></img>
       </div>
       <h5 class="font-weight-bold mt-4 mb-3">Sarthak Jain</h5>
-      <p class="text-uppercase blue-text"><strong>Backend Developer</strong></p>
-      <p class="grey-text">email</p>
-      <p class="grey-text">mobile</p>
-      <ul class="list-unstyled mb-0">
-        <a class="p-2 fa-lg fb-ic">
-          <i class="fab fa-facebook-f blue-text"> </i>
-        </a>
-        <a class="p-2 fa-lg ins-ic">
-          <i class="fab fa-instagram blue-text"> </i>
-        </a>
-        <a class="p-2 fa-lg ins-ic">
-          <i class="fab fa-github blue-text"> </i>
-        </a>
-      </ul>
+      <p class="text-uppercase blue-text"><strong>Developer</strong></p>
+      <p class="grey-text">saarthakjain001@gmail.com</p>
+      <p class="grey-text">873997296</p>
+      
     </div>
     
     <div class="col-lg-3 col-md-6 mb-4">
       <div class="avatar mx-auto">
-        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(32).jpg" class="rounded-circle z-depth-1"
+        <img src={dhruv} class="rounded-circle z-depth-1 w-100"
           alt="Sample avatar"></img>
       </div>
       <h5 class="font-weight-bold mt-4 mb-3">Dhruv Gupta</h5>
-      <p class="text-uppercase blue-text"><strong>Frontend Developer</strong></p>
-      <p class="grey-text">email</p>
-      <p class="grey-text">mobile</p>
-      <ul class="list-unstyled mb-0">
-        <a class="p-2 fa-lg fb-ic">
-          <i class="fab fa-facebook-f blue-text"> </i>
-        </a>
-        <a class="p-2 fa-lg ins-ic">
-          <i class="fab fa-instagram blue-text"> </i>
-        </a>
-        <a class="p-2 fa-lg ins-ic">
-          <i class="fab fa-github blue-text"> </i>
-        </a>
-      </ul>
+      <p class="text-uppercase blue-text"><strong>Developer</strong></p>
+      <p class="grey-text">dhruvgup98@gmail.com</p>
+      <p class="grey-text">9340194537</p>
+      
     </div>
     
   </div>
