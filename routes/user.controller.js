@@ -3,15 +3,15 @@ const router = express.Router();
 
 //Item model
 const User = require("../models/user.model");
-
+const Post = require("../models/post.model");
 router.get("/", (req, res) => {
-  User.findOne().then(users => res.json(users));
+  User.findOne().then((users) => res.json(users));
 });
 
 router.post("/add", (req, res) => {
   addUser(req.body)
-    .then(res_object => res.json(res_object))
-    .catch(err => res.json(err));
+    .then((res_object) => res.json(res_object))
+    .catch((err) => res.json(err));
 });
 
 router.put("/", (req, res) => {
@@ -41,7 +41,7 @@ async function addUser({ name, email, mob, username, password }) {
   const user = await User.findOne({ username });
   res_object = {
     status: "",
-    message: ""
+    message: "",
   };
   if (user) {
     res_object["status"] = "0";
@@ -73,12 +73,12 @@ router.post("/authentication", authentication);
 
 function authentication(req, res, next) {
   authenticate(req.body)
-    .then(res_obj =>
+    .then((res_obj) =>
       res_obj
         ? res.json(res_obj)
         : res.json({ message: "password is incorrect" })
     )
-    .catch(err => next(err));
+    .catch((err) => next(err));
 }
 
 async function authenticate({ username, password }) {
@@ -89,13 +89,13 @@ async function authenticate({ username, password }) {
     return {
       username,
       status: "1",
-      message: "login succesful"
+      message: "login succesful",
     };
   } else {
     return {
       username,
       status: "2",
-      message: "password incorrect"
+      message: "password incorrect",
     };
   }
 }
@@ -103,12 +103,29 @@ async function authenticate({ username, password }) {
 router.get("/userDetails", async (req, res) => {
   console.log(req.query);
   User.find({ username: req.query.userName }, { _id: 0, requests: 0 })
-    .then(user => {
+    .then((user) => {
       console.log("request to user router:", req.query);
       console.log("Resp to notif :", res);
       return res.json(user);
     })
     .catch(error);
+});
+
+router.get("/prevRides", async (req, res) => {
+  console.log("Requested previous rides.Calling database", req.query);
+  if (req.query.type == 1) {
+    Post.find({ members: req.query.name })
+      .then((y) => {
+        return res.json(y);
+      })
+      .catch((err) => res.json(err));
+  } else {
+    Post.find({ postOwner: req.query.name })
+      .then((y) => {
+        return res.json(y);
+      })
+      .catch((err) => res.json(err));
+  }
 });
 
 module.exports = router;

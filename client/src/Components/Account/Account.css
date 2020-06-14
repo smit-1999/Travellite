@@ -1,7 +1,9 @@
 /*
  * Account css File
 */
-
+.postsitem {
+  display: inline-block;
+}
 .Account {
-    /* propertys here */
+  /* propertys here */
 }

@@ -11,6 +11,8 @@ import { MDBContainer, MDBRow, MDBCol, MDBJumbotron } from "mdbreact";
 import DatePicker from "react-date-picker";
 import Button from "react-bootstrap/Button";
 import { FormGroup, Label, FormText } from "reactstrap";
+import DayPicker from "react-day-picker";
+import "react-day-picker/lib/style.css";
 //import DatePicker from "reactstrap-date-picker";
 const base_url = require("../../config/keys").base_uri;
 const locationOptions = [
@@ -18,6 +20,7 @@ const locationOptions = [
   { value: "secunderabad", label: "Secunderabad" },
   { value: "campus", label: "BPHC" },
 ];
+
 class SearchPage extends Component {
   constructor(props) {
     super(props);
@@ -171,7 +174,6 @@ class SearchPage extends Component {
                       }}
                     />
                   </div>
-
                   {/* <div>
                     <DatePicker
                       id="date-picker"

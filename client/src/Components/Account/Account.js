@@ -1,13 +1,28 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import './Account.css';
+import axios from "axios";
+import "./Account.css";
+import Table from "react-bootstrap/Table";
+import Navigation_bar from "../Navigation_bar";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import { ListGroup } from "react-bootstrap";
+const base_url = require("../../config/keys").base_uri;
 
 class Account extends Component {
-  // constructor(props){
-    // super(props);
-    // this.state = {};
-  // }
-
+  constructor(props) {
+    super(props);
+    this.state = { myPosts: [], myRides: [] };
+    this.getPreviousRides = this.getPreviousRides.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.getMyPosts = this.getMyPosts.bind(this);
+    this.getTableContents = this.getTableContents.bind(this);
+  }
+  componentDidMount() {
+    const user = localStorage.getItem("user");
+    this.setState({
+      userName: user,
+    });
+  }
   // componentWillMount(){}
   // componentDidMount(){}
   // componentWillUnmount(){}
@@ -17,19 +32,175 @@ class Account extends Component {
   // componentWillUpdate(){}
   // componentDidUpdate(){}
 
+  getPreviousRides = () => {
+    console.log("On account page of ", this.state.userName);
+    var params = {
+      name: this.state.userName,
+      type: 1,
+    };
+    var res1 = "";
+
+    axios
+      .get(base_url + "/user/prevRides", { params })
+      .then((response) => {
+        console.log(
+          "Response obtained from database for prevRides where user is a member",
+          response.data
+        );
+        this.setState({ myRides: response.data });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  getMyPosts = () => {
+    const params = {
+      name: this.state.userName,
+      type: 2,
+    };
+    var res2 = "";
+
+    axios
+      .get(base_url + "/user/prevRides", { params })
+      .then((response) => {
+        this.setState({
+          myPosts: response.data,
+        });
+
+        // return <h1>test </h1>;
+      })
+      .catch((err) => console.log(err));
+  };
+
+  getTableContents = () => {
+    // const iterateItem = (item) => {
+    //   return item.map(function(nextItem, j) {
+    //     return (
+    //       <tr key={nextItem.type}>
+    //         <td>{nextItem.type}</td>
+    //         <td>{nextItem.count}</td>
+    //       </tr>
+    //     );
+    //   });
+    // };
+    // return arr.map(function(item, i) {
+    //   return (
+    //     <table key={item.productType}>
+    //       <thead>{item.productType}</thead>
+    //       <tbody>{iterateItem(item.contents)}</tbody>
+    //     </table>
+    //   );
+    // });
+  };
   render() {
     const loggedIn = localStorage.getItem("loggedIn");
-    if(loggedIn.localeCompare("false")===0){
-      return (
-        <Redirect
-          to="/Login"
-        />
-      );
+    if (loggedIn.localeCompare("false") === 0) {
+      return <Redirect to="/Login" />;
     }
+    if (this.state.myPosts === undefined || this.state.myPosts.length == 0) {
+      this.getMyPosts();
+    }
+    if (this.state.myRides === undefined || this.state.myRides.length == 0) {
+      this.getPreviousRides();
+      console.log(this.state.myRides);
+    }
+
     return (
-      <div>Account works</div>
+      <div>
+        <Navigation_bar />
+        <div class="jumbotron bg-dark text-white">
+          <h1 align="center" class="text-info">
+            My Posts
+          </h1>
+          <div class="container ">
+            {/* <ListGroup> */}
+
+            {this.state.myPosts.map((post) => {
+              const {
+                _id,
+                sourceLocation,
+                destinationLocation,
+                isFilled,
+                date,
+                postOwner,
+              } = post;
+
+              return (
+                <Jumbotron>
+                  <div class="row p-3 mb-2 bg-transparent text-dark">
+                    {/* <ListGroup.Item key={_id}> */}
+                    <div class="col">
+                      <h4 class="text-primary">Source {sourceLocation}</h4>
+                    </div>
+                    <div class="col">
+                      <h4 class="text-success">
+                        Destination {destinationLocation}
+                      </h4>
+                    </div>
+                    {/* <h4 align="left">Source : {sourceLocation}</h4>
+                      <h4>Destination : {destinationLocation} </h4> */}
+                    <div class="col">
+                      <h4 class="text-warning">Date of Journey {date}</h4>
+                    </div>
+
+                    <hr />
+                    {/* </ListGroup.Item> */}
+                  </div>
+                </Jumbotron>
+              );
+            })}
+            {/* </ListGroup> */}
+          </div>
+        </div>
+
+        <div class="jumbotron bg-dark text-white">
+          <h1 align="center" class="text-info">
+            My Rides
+          </h1>
+          <div class="container ">
+            {/* <ListGroup> */}
+            {this.state.myRides.map((post) => {
+              const {
+                _id,
+                sourceLocation,
+                destinationLocation,
+                isFilled,
+                date,
+                postOwner,
+              } = post;
+              return (
+                <Jumbotron>
+                  <div class="row p-3 mb-2 bg-transparent text-dark">
+                    {/* <ListGroup.Item key={_id}> */}
+                    <div class="col">
+                      <h4 class="text-primary">Source : {sourceLocation}</h4>
+                    </div>
+                    <div class="col">
+                      <h4 class="text-success">
+                        Destination {destinationLocation}
+                      </h4>
+                    </div>
+                    {/* <h4 align="left">Source : {sourceLocation}</h4>
+                      <h4>Destination : {destinationLocation} </h4> */}
+                    <div class="col">
+                      <h4 class="text-warning">Date of Journey {date}</h4>
+                    </div>
+                    <div class="col">
+                      <h4 class="text-info">Cab Leader {postOwner}</h4>
+                    </div>
+                    <hr />
+                    {/* </ListGroup.Item> */}
+                  </div>
+                </Jumbotron>
+              );
+            })}
+            {/* </ListGroup> */}
+          </div>
+        </div>
+      </div>
     );
   }
 }
+//view previous rides
+//view upcoming rides
 
 export default Account;
