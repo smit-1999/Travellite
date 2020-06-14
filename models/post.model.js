@@ -4,30 +4,31 @@ const Schema = mongoose.Schema;
 //Create a Schema
 const post = new Schema({
   postOwner: {
-    type: String
+    type: String,
   },
+
   members: {
-    type: Array
+    type: Array,
   },
   sourceLocation: {
-    type: String
+    type: String,
   },
   destinationLocation: {
-    type: String
+    type: String,
   },
   date: {
-    type: Object
+    type: Object,
   },
   timeSlot: {
-    type: String
+    type: String,
   },
   people: {
-    type: String
+    type: String,
   },
   isFilled: {
     type: String,
-    default: false
-  }
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("Post", post);
