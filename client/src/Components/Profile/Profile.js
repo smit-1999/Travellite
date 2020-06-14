@@ -12,18 +12,24 @@ import {
   MDBCardBody,
   MDBCardText,
   MDBCardTitle,
-  MDBCardImage
+  MDBCardImage,
 } from "mdbreact";
+import Navigation_bar from "../Navigation_bar";
 const base_url = require("../../config/keys").base_uri;
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = { userDetails: [], userName: "" };
+    this.state = {
+      userDetails: [],
+      userName: "-",
+      email: ".com",
+      mobile: "123",
+    };
 
     this.getUserDetails = this.getUserDetails.bind(this);
   }
 
-  // componentWillMount(){}
+  //componentWillMount(){}
   // componentDidMount(){}
   // componentWillUnmount(){}
 
@@ -33,48 +39,51 @@ class Profile extends Component {
   // componentDidUpdate(){}
 
   getUserDetails = async () => {
-    console.log("get user details works");
+    console.log("Querying for", this.state.userName);
     const params = {
-      userName: "abc"
+      userName: this.state.userName,
     };
-    //const userName = "Saarthak";
+
     await axios
-      .get(base_url + "/user/userDetails", {
-        params
-      })
-      .then(response => {
-        this.setState({ notifs: response.data });
-        console.log("inside");
-        //console.log(params);
-        console.log(response);
+      .get(base_url + "/user/userDetails", { params })
+      .then((response) => {
+        this.setState({
+          userDetails: response.data,
+          mobile: response.data[0].mob,
+          email: response.data[0].email,
+        });
+
+        console.log("Inside get req", response.data[0]);
       })
       .catch(function(error) {
         console.log(error);
       });
-    //console.log(this.state.userDetails);
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const user = localStorage.getItem("user");
     this.setState({
-      userName: user
+      userName: user,
     });
-    console.log("heelo");
   }
 
   render() {
-    let username = "smit",
-      mob = "123",
-      emailid = "x@g.com";
     const loggedIn = localStorage.getItem("loggedIn");
     if (loggedIn.localeCompare("false") === 0) {
       return <Redirect to="/Login" />;
-    } else {
-      //this.getUserDetails();
-      //console.log(this.state.userDetails);
+    }
+
+    if (
+      (this.state.userDetails === undefined ||
+        this.state.userDetails.length == 0) &&
+      this.state.userName != "-"
+    ) {
+      this.getUserDetails();
+      console.log("Obtained user details", this.state.userDetails);
     }
     return (
       <div>
+        <Navigation_bar />
         <MDBContainer className="mt-5 text-center">
           <MDBRow>
             <MDBCol>
@@ -85,7 +94,7 @@ class Profile extends Component {
                     src="https://cdn2.f-cdn.com/contestentries/1465388/8851154/5c3e839cde852_thumb900.jpg"
                     waves
                   />
-                  <MDBCardTitle className="h2">
+                  <MDBCardTitle className="h2 text-info">
                     My Account Details
                     <div>
                       {" "}
@@ -93,17 +102,20 @@ class Profile extends Component {
                     </div>
                   </MDBCardTitle>
                   <hr className="my-4" />
-                  <MDBRow className="mt-3">
-                    {" "}
-                    Username <MDBIcon icon="user" className="pl-3" />
+                  <MDBRow className="mt-5">
+                    <h3 class="text-primary">Username :</h3>
+
+                    <h3 class="text-secondary"> {this.state.userName} </h3>
                   </MDBRow>
-                  <MDBRow className="mt-3">
+                  <MDBRow className="mt-5">
                     {" "}
-                    Email Id <MDBIcon icon="envelope" className="pl-3" />{" "}
+                    <h3 class="text-primary">Email Id : </h3>
+                    <h3 class="text-secondary"> {this.state.email} </h3>
                   </MDBRow>
-                  <MDBRow className="mt-3">
+                  <MDBRow className="mt-5">
                     {" "}
-                    Mobile <MDBIcon icon="mobile-alt" className="pl-3" />
+                    <h3 class="text-primary">Mobile : </h3>
+                    <h3 class="text-secondary"> {this.state.mobile} </h3>
                   </MDBRow>
 
                   <div className="pt-2">

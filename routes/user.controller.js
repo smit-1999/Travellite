@@ -101,14 +101,16 @@ async function authenticate({ username, password }) {
 }
 
 router.get("/userDetails", async (req, res) => {
-  console.log(req.query);
-  User.find({ username: req.query.userName }, { _id: 0, requests: 0 })
+  console.log("Inside router", req.query.userName);
+  User.find({ username: req.query.userName })
     .then((user) => {
       console.log("request to user router:", req.query);
-      console.log("Resp to notif :", res);
+
       return res.json(user);
     })
-    .catch(error);
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 router.get("/prevRides", async (req, res) => {
@@ -124,7 +126,9 @@ router.get("/prevRides", async (req, res) => {
       .then((y) => {
         return res.json(y);
       })
-      .catch((err) => res.json(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 });
 

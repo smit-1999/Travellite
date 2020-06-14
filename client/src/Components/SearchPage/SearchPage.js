@@ -73,7 +73,7 @@ class SearchPage extends Component {
       .catch(function(error) {
         console.log(error);
       });
-    //alert("Your request has been submitted");
+    alert("Your request has been processed");
   };
 
   submitRequest = () => {
@@ -140,7 +140,7 @@ class SearchPage extends Component {
     return (
       <div>
         <Navigation_bar />
-        <AddPost />
+
         <MDBContainer className="mt-5 text-center">
           <MDBRow>
             <MDBCol>
@@ -236,6 +236,7 @@ class SearchPage extends Component {
             );
           })}
         </ListGroup>
+        <AddPost />
       </div>
     );
   }

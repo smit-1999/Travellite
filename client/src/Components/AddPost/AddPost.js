@@ -77,7 +77,7 @@ class AddPost extends Component {
     return (
       <div>
         <Button
-          className="remove-btn"
+          className="remove-btn float-right"
           color="danger"
           size="sm"
           onClick={this.openModal}

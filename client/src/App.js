@@ -12,33 +12,34 @@ import Account from "./Components/Account";
 import AboutPage from "./Components/AboutUsPage";
 import { Navbar } from "reactstrap";
 import AddPost from "./Components/AddPost/AddPost";
+import Dashboard from "./Components/Dashboard";
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: ""
+      username: "",
     };
     this.requireAuth = this.requireAuth.bind(this);
     //this.handleForgot = this.handleForgot.bind(this);
-    //this.handleSubmit = this.handleSubmit.bind(this);  
-    //this.componentDidMount = this.componentDidMount.bind(this);  
+    //this.handleSubmit = this.handleSubmit.bind(this);
+    //this.componentDidMount = this.componentDidMount.bind(this);
   }
-  componentDidMount(){
-    if(this.state.flag === false){
-    localStorage.setItem('loggedIn',false);
-    this.setState({
-      flag : true
-    })
+  componentDidMount() {
+    if (this.state.flag === false) {
+      localStorage.setItem("loggedIn", false);
+      this.setState({
+        flag: true,
+      });
     }
   }
-  requireAuth(nextState, replace){
-    const loggedIn = localStorage.getItem('loggedIn');
+  requireAuth(nextState, replace) {
+    const loggedIn = localStorage.getItem("loggedIn");
     console.log(loggedIn);
     alert(loggedIn);
     if (!loggedIn) {
       replace({
-        pathname: '/login'
-      })
+        pathname: "/login",
+      });
     }
   }
   render() {
@@ -51,11 +52,11 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
             <Route path="/account" component={Account} />
-            <Route path="/search" component={SearchPage}/>
+            <Route path="/search" component={SearchPage} />
             <Route path="/about" component={AboutPage} />
             <Route path="/addPost" component={AddPost} />
-            <Route exact path="/"component = {HomePage}>              
-            </Route>
+            <Route path="/Dashboard" component={Dashboard} />
+            <Route exact path="/" component={HomePage}></Route>
           </Switch>
         </div>
       </BrowserRouter>

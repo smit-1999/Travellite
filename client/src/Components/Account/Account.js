@@ -71,26 +71,6 @@ class Account extends Component {
       .catch((err) => console.log(err));
   };
 
-  getTableContents = () => {
-    // const iterateItem = (item) => {
-    //   return item.map(function(nextItem, j) {
-    //     return (
-    //       <tr key={nextItem.type}>
-    //         <td>{nextItem.type}</td>
-    //         <td>{nextItem.count}</td>
-    //       </tr>
-    //     );
-    //   });
-    // };
-    // return arr.map(function(item, i) {
-    //   return (
-    //     <table key={item.productType}>
-    //       <thead>{item.productType}</thead>
-    //       <tbody>{iterateItem(item.contents)}</tbody>
-    //     </table>
-    //   );
-    // });
-  };
   render() {
     const loggedIn = localStorage.getItem("loggedIn");
     if (loggedIn.localeCompare("false") === 0) {
