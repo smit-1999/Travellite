@@ -6,7 +6,7 @@ const Post = require("../models/post.model");
 const User = require("../models/user.model");
 
 router.get("/", (req, res) => {
-  Post.find(req.query).then(posts => {
+  Post.find(req.query).then((posts) => {
     console.log("request to router:", req.query);
     console.log("Resp to search query :", posts, typeof posts);
     return res.json(posts);
@@ -21,7 +21,7 @@ router.post("/add", (req, res) => {
   newPost.save(function(err, instance) {
     res_object = {
       status: "",
-      message: ""
+      message: "",
     };
     if (err) {
       res_object["status"] = "failure";

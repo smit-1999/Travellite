@@ -68,8 +68,9 @@ class Navigation_bar extends Component {
   getNotification = async () => {
     console.log("notif works");
     const params = {
-      userName: "Saarthak",
+      userName: this.state.username,
     };
+    console.log(params.userName);
     await axios
       .get(base_url + "/notif/ownerRequests", { params })
       .then((response) => {
@@ -82,7 +83,7 @@ class Navigation_bar extends Component {
       });
   };
 
-  acceptRequest = async () => {
+  acceptRequest = async (reqOwner, pId) => {
     console.log("accept works");
     // const params = {
     //   requestOwner: "amit12", //Here the name of the requester has to be used
@@ -92,14 +93,42 @@ class Navigation_bar extends Component {
     // };
     await axios
       .put(base_url + "/notif/ownerRequests/accept", {
-        requestOwner: "amit12", //Here the name of the requester has to be used
-        postId: "5e86f194dda4280d7159e5c0", //Here the postId corresponding to the request has to be used
-        postOwner: "saksham12", //Here the username from the state has to be used
+        requestOwner: reqOwner, //Here the name of the requester has to be used
+        postId: pId, //Here the postId corresponding to the request has to be used
+        postOwner: this.state.username, //Here the username from the state has to be used
         //Both postId and requestOwner values are obtained when using getNotification Function
       })
       .then((response) => {
         //this.setState({ notifs: response.data });
         console.log("inside accept");
+        console.log(pId);
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
+
+  rejectRequest = async (reqOwner, pId) => {
+    console.log("reject works");
+    // const params = {
+    //   requestOwner: "amit12", //Here the name of the requester has to be used
+    //   postId: "5e86f194dda4280d7159e5c0", //Here the postId corresponding to the request has to be used
+    //   postOwner: "saksham12" //Here the username from the state has to be used
+    //   //Both postId and requestOwner values are obtained when using getNotification Function
+    // };
+    await axios
+      .put(base_url + "/notif/ownerRequests/reject", {
+        requestOwner: reqOwner, //Here the name of the requester has to be used
+        postId: pId, //Here the postId corresponding to the request has to be used
+        postOwner: this.state.username, //Here the username from the state has to be used
+        //Both postId and requestOwner values are obtained when using getNotification Function
+      })
+      .then((response) => {
+        //this.setState({ notifs: response.data });
+        console.log("inside reject");
+        console.log(pId);
         console.log(response);
       })
       .catch(function(error) {
@@ -127,6 +156,7 @@ class Navigation_bar extends Component {
   };
   render() {
     const notifs = this.state.notifs;
+    const user = this.state.username;
     return (
       <div>
         <MDBNavbar color="black" dark expand="md">
@@ -156,19 +186,29 @@ class Navigation_bar extends Component {
                     <MDBDropdownItem>
                       <ListGroup>
                         {notifs.map((notif) => {
-                          const { requester, _id } = notif;
+                          const { requester, postId } = notif;
                           // console.log(_id, sourceLocation, destinationLocation);
                           return (
-                            <ListGroup.Item key={_id}>
+                            <ListGroup.Item key={postId}>
                               <p className="p">
                                 {requester} has requested to join with you in a
                                 ride
                               </p>
                               <hr />
-                              <MDBBtn color="blue" className="notifButton">
+                              <MDBBtn
+                                color="blue"
+                                className="notifButton"
+                                onClick={() => {
+                                  console.log(postId);
+                                  this.acceptRequest(requester, postId);
+                                }}
+                              >
                                 <i class="fas fa-check"></i>
                               </MDBBtn>
-                              <MDBBtn color="red" className="notifButton">
+                              <MDBBtn color="red" className="notifButton" onClick={() => {
+                                  console.log(postId);
+                                  this.rejectRequest(requester, postId);
+                                }}>
                                 <i class="fas fa-times"></i>
                               </MDBBtn>
                             </ListGroup.Item>

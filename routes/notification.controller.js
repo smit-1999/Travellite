@@ -7,7 +7,7 @@ const User = require("../models/user.model");
 const Post = require("../models/post.model");
 
 router.get("/", (req, res) => {
-  Notification.find().then(notifs => {
+  Notification.find().then((notifs) => {
     console.log("request to notif router:", req.query);
     console.log("Resp to notif :", res);
     return res.json(notifs);
@@ -16,9 +16,9 @@ router.get("/", (req, res) => {
 router.get("/ownerRequests", async (req, res) => {
   console.log(req.query);
   Notification.find(
-    { postOwner: req.query.userName },
-    { requester: 1, _id: 0, postId: 1 }
-  ).then(notifs => {
+    { postOwner: req.query.userName, typeofNotif: "request" }
+    // { requester: 1, _id: 0, postId: 1 }
+  ).then((notifs) => {
     console.log("request to notif router:", req.query);
     console.log(notifs);
     return res.json(notifs);
@@ -29,8 +29,20 @@ var changeStatus = async function(req, res, next) {
   Notification.updateOne(
     { requester: req.body.requestOwner, postId: req.body.postId },
     { $set: { typeofNotif: "accepted" } }
-  ).then(notifs => {
+  ).then((notifs) => {
     console.log("Request accepted:");
+    console.log(notifs);
+    next();
+    //return res.json(notifs);
+  });
+};
+
+var rejectStatus = async function(req, res, next) {
+  Notification.updateOne(
+    { requester: req.body.requestOwner, postId: req.body.postId },
+    { $set: { typeofNotif: "rejected" } }
+  ).then((notifs) => {
+    console.log("Request rejected:");
     console.log(notifs);
     next();
     //return res.json(notifs);
@@ -41,8 +53,11 @@ var addMemberToPost = async function(req, res, next) {
   Post.updateOne(
     { _id: req.body.postId },
     { $push: { members: req.body.requestOwner } }
-  ).then(notifs => {
+  ).then((notifs) => {
     console.log("Added to members list in post");
+    console.log(req.body.postId);
+    console.log(req.body.requestOwner);
+    console.log("cc");
     console.log(notifs);
     next();
     //return res.json(notifs);
@@ -58,13 +73,26 @@ router.put(
     User.updateOne(
       { username: req.body.requestOwner },
       { $push: { confirmed: req.body.postOwner } }
-    ).then(notifs => {
+    ).then((notifs) => {
       console.log("Confirmed", req.query);
       console.log(notifs);
       return res.json(notifs);
     });
   }
 );
+
+router.put("/ownerRequests/reject", [rejectStatus], async (req, res) => {
+  //console.log(requestOwner);
+  console.log(req.query);
+  User.updateOne(
+    { username: req.body.requestOwner },
+    { $pull: { requests: req.body.postOwner } }
+  ).then((notifs) => {
+    console.log("Confirmed", req.query);
+    console.log(notifs);
+    return res.json(notifs);
+  });
+});
 
 router.post("/add", (req, res) => {
   const newNotif = new Notification(req.body);
@@ -73,7 +101,7 @@ router.post("/add", (req, res) => {
   newNotif.save(function(err, instance) {
     res_object = {
       status: "",
-      message: ""
+      message: "",
     };
     if (err) {
       res_object["status"] = "failure";
