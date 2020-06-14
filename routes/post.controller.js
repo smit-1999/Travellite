@@ -18,22 +18,22 @@ router.post("/add", (req, res) => {
 
   console.log(newPost);
   console.log(req.body);
-  newPost.save(function(err, instance) {
-    var res_object = {
+  newPost.save(function(error, instance) {
+    let result = {
       status: "",
       message: "",
     };
-    if (err) {
-      res_object["status"] = "failure";
-      res_object["message"] = "database error";
-      console.log(res_object["status"] + " " + res_object["message"]);
-      console.log(err);
-      return res.json(res_object);
+    if (error) {
+      result["status"] = "failure";
+      result["message"] = "database error";
+      console.log(result["status"] + " " + result["message"]);
+      console.log(error);
+      return res.json(result);
     } else {
-      res_object["status"] = "success";
-      res_object["message"] = "Post added to the database";
-      console.log(res_object);
-      res.json(res_object);
+      result["status"] = "success";
+      result["message"] = "Post added to the database";
+      console.log(result);
+      res.json(result);
     }
   });
 });
