@@ -132,7 +132,7 @@ class Dashboard extends Component {
           four_map.set(i + 1, 0);
         }
         for (var i = 0; i < people_list.length; i++) {
-          if (people_list === 1) {
+          if (people_list[i] == 1) {
             const s = one_map.get(month_list[i]);
             one_map.set(month_list[i], s + 1);
           }
@@ -169,13 +169,13 @@ class Dashboard extends Component {
         });
         console.log(this.state.list1 + ":list1");
         const m = new Map();
-        array.map((num) => {
+        array.forEach((num) => {
           m.set(num, 0);
         });
         // array.forEach(()=>{
         //     list_temp3.push(0);
         // });
-        list_temp2.map((num) => {
+        list_temp2.forEach((num) => {
           m.set(num, m.get(num) + 1);
         });
         const a1 = [...m.values()];
@@ -187,7 +187,7 @@ class Dashboard extends Component {
         });
         console.log(this.state.list1);
         console.log(this.state.list2);
-        array.map(() => {
+        array.forEach(() => {
           var color = randomColor();
           list_temp4.push(color);
         });
