@@ -99,7 +99,7 @@ router.post("/add", (req, res) => {
   console.log("Notif req data is:", req.body);
   console.log("Saving new incoming notification : ", newNotif);
   newNotif.save(function(err, instance) {
-    res_object = {
+    var res_object = {
       status: "",
       message: "",
     };

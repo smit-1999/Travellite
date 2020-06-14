@@ -19,7 +19,7 @@ router.post("/add", (req, res) => {
   console.log(newPost);
   console.log(req.body);
   newPost.save(function(err, instance) {
-    res_object = {
+    var res_object = {
       status: "",
       message: "",
     };

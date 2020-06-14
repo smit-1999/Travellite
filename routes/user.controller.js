@@ -15,7 +15,7 @@ router.post("/add", (req, res) => {
 });
 
 router.put("/", (req, res) => {
-  dateTest = new Date();
+  var dateTest = new Date();
   // arr = [
   //   {
   //     id: "123456",
@@ -39,7 +39,7 @@ router.put("/", (req, res) => {
 
 async function addUser({ name, email, mob, username, password }) {
   const user = await User.findOne({ username });
-  res_object = {
+  var res_object = {
     status: "",
     message: "",
   };

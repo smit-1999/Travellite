@@ -13,7 +13,6 @@ class Account extends Component {
     this.getPreviousRides = this.getPreviousRides.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.getMyPosts = this.getMyPosts.bind(this);
-    this.getTableContents = this.getTableContents.bind(this);
   }
   componentDidMount() {
     const user = localStorage.getItem("user");
