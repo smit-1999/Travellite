@@ -72,7 +72,7 @@ router.put(
     console.log(req.query);
     User.updateOne(
       { username: req.body.requestOwner },
-      { $push: { confirmed: req.body.postOwner } }
+      { $push: { confirmed: req.body.postId } }
     ).then((notifs) => {
       console.log("Confirmed", req.query);
       console.log(notifs);
@@ -85,8 +85,8 @@ router.put("/ownerRequests/reject", [rejectStatus], async (req, res) => {
   //console.log(requestOwner);
   console.log(req.query);
   User.updateOne(
-    { username: req.body.requestOwner },
-    { $pull: { requests: req.body.postOwner } }
+    { username: req.body.postOwner },
+    { $pull: { requests: req.body.postId } }
   ).then((notifs) => {
     console.log("Confirmed", req.query);
     console.log(notifs);
