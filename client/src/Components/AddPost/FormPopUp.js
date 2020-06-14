@@ -9,12 +9,10 @@ import {
   //Form,
   //FormGroup
 } from "reactstrap";
-import { Formik } from "formik";
-import * as Yup from "yup";
+
 import DatePicker from "react-date-picker";
 import Select from "react-select";
 import axios from "axios";
-import AddPost from "./AddPost.js";
 const base_url = require("../../config/keys").base_uri;
 const items = [
   { value: "airport", label: "Airport" },

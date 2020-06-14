@@ -11,9 +11,7 @@ import {
   MDBIcon,
 } from "mdbreact";
 import { Bar, Pie } from "react-chartjs-2";
-import { Redirect } from "react-router-dom";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
 import Navigation_bar from "../Navigation_bar";
 {
   /* <form>
@@ -73,9 +71,7 @@ class Dashboard extends Component {
       .then((response) => {
         const list_temp = [];
         const list_temp2 = [];
-        const list_temp3 = [];
         const list_temp4 = [];
-        const list_temp5 = [];
         const people_list = [];
         //this.setState({ list1: response.data });
         console.log(response.data);
