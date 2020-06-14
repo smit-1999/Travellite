@@ -10,7 +10,6 @@ import {
   MDBCol,
   MDBIcon,
   MDBCardBody,
-  MDBCardText,
   MDBCardTitle,
   MDBCardImage,
 } from "mdbreact";

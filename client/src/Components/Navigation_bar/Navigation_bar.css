@@ -2,27 +2,26 @@
  * Navigation_bar css File
 */
 
-body{
+body {
   background: #dfecff;
   color: #7f8db0;
 }
 
-a{
-   color: #7f8db0;
+a {
+  color: #7f8db0;
 }
 .Navigation_bar {
   /* propertys here */
 }
-.notifLogo {
-}
-.p{
+
+.p {
   font-size: 12px;
-  margin : 1px;
+  margin: 1px;
 }
 .notifButton {
-  padding: .1rem 0.5rem;
-  margin : 1px;
+  padding: 0.1rem 0.5rem;
+  margin: 1px;
 }
-.notifDropdown{
-  width : 350px;
+.notifDropdown {
+  width: 350px;
 }

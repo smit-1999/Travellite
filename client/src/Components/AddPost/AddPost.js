@@ -12,8 +12,6 @@ import {
 } from "reactstrap";
 import DatePicker from "react-date-picker";
 import Select from "react-select";
-
-import FormPopUp from "./FormPopUp";
 import axios from "axios";
 const base_url = require("../../config/keys").base_uri;
 

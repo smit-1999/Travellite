@@ -1,9 +1,16 @@
-import React, { Component } from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
-import background from "../../images/background.jpg";
-import './Login.css';
-import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBInput,
+  MDBBtn,
+  MDBCard,
+  MDBCardBody,
+} from "mdbreact";
+import "./Login.css";
+import axios from "axios";
+import { Redirect } from "react-router-dom";
 const base_url = require("../../config/keys").base_uri;
 
 // componentWillMount(){}
@@ -15,17 +22,16 @@ const base_url = require("../../config/keys").base_uri;
 // componentWillUpdate(){}
 // componentDidUpdate(){}
 
-
 class Login extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       isLoggedin: false,
       username: null,
-      password: null
+      password: null,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-   }
+  }
   // componentWillMount(){}
   // componentDidMount(){}
   // componentWillUnmount(){}
@@ -34,98 +40,103 @@ class Login extends Component {
   // shouldComponentUpdate(){}
   // componentWillUpdate(){}
   // componentDidUpdate(){}
-   handleSubmit= event => {
-     event.preventDefault();
-     if(this.state.username === null || this.state.username === ""){
+  handleSubmit = (event) => {
+    event.preventDefault();
+    if (this.state.username === null || this.state.username === "") {
       alert("enter username");
-    }else if(this.state.password === null || this.state.password === ""){
+    } else if (this.state.password === null || this.state.password === "") {
       alert("enter password");
-    }else{
-     const data = {
-      username: this.state.username,
-      password: this.state.password
-  };
-    axios.post(base_url + '/user/authentication',data)
-    .then(response => {
-      console.log(response);
-      if(!response.data.status.localeCompare("0")){
-          alert("Username doesnt exists");
-      }else if(!response.data.status.localeCompare("2")){
-          alert("Incorrect Password");
-      }else if(!response.data.status.localeCompare("1")){
-        this.setState({
-          isLoggedin:true,
-          username : data.username
+    } else {
+      const data = {
+        username: this.state.username,
+        password: this.state.password,
+      };
+      axios
+        .post(base_url + "/user/authentication", data)
+        .then((response) => {
+          console.log(response);
+          if (!response.data.status.localeCompare("0")) {
+            alert("Username doesnt exists");
+          } else if (!response.data.status.localeCompare("2")) {
+            alert("Incorrect Password");
+          } else if (!response.data.status.localeCompare("1")) {
+            this.setState({
+              isLoggedin: true,
+              username: data.username,
+            });
+          } else {
+            alert("Error , Try Again ... !!!");
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
         });
-      }else{
-        alert("Error , Try Again ... !!!");
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
     }
-  }
+  };
   render() {
     if (this.state.isLoggedin) {
       console.log(this.state.username);
-      localStorage.setItem('user',this.state.username);
-      localStorage.setItem('loggedIn',true);
-      return <Redirect to='/search'/>      
+      localStorage.setItem("user", this.state.username);
+      localStorage.setItem("loggedIn", true);
+      return <Redirect to="/search" />;
     }
     return (
-  
-   <MDBContainer className ="mt-5">
-            <MDBRow>
-              <MDBCol md="6">
-                <MDBCard> 
-                  <MDBCardBody>
-                    <form>
-                      <p className="h4 text-center py-4">Log in</p>
-                      <div className="grey-text">
-                        <MDBInput
-                          label="Username"
-                          icon="fas fa-user-tie"
-                          group
-                          type="text"
-                          validate
-                          error="wrong"
-                          success="right"
-                          value={this.state.username}
-                          onChange={e => this.setState({ username: e.target.value })}
-                        />
-                        <MDBInput
-                          label="Your password"
-                          icon="far fa-lock"
-                          group
-                          type="password"
-                          validate
-                          value={this.state.password}
-                          onChange={e => this.setState({ password: e.target.value })}
-                        />
-                      </div>
-                      <div className="text-center py-4 mt-3">
-                        <MDBBtn color="blue" type="submit" onClick={this.handleSubmit}>
-                          Log in
-                        </MDBBtn>
-                      </div>
-                      <div className="text-center">
-                       Not a member..? <a href="/register">Register</a>
-                      </div>
-                    </form>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-            </MDBRow>
-          </MDBContainer>
+      <MDBContainer className="mt-5">
+        <MDBRow>
+          <MDBCol md="6">
+            <MDBCard>
+              <MDBCardBody>
+                <form>
+                  <p className="h4 text-center py-4">Log in</p>
+                  <div className="grey-text">
+                    <MDBInput
+                      label="Username"
+                      icon="fas fa-user-tie"
+                      group
+                      type="text"
+                      validate
+                      error="wrong"
+                      success="right"
+                      value={this.state.username}
+                      onChange={(e) =>
+                        this.setState({ username: e.target.value })
+                      }
+                    />
+                    <MDBInput
+                      label="Your password"
+                      icon="far fa-lock"
+                      group
+                      type="password"
+                      validate
+                      value={this.state.password}
+                      onChange={(e) =>
+                        this.setState({ password: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="text-center py-4 mt-3">
+                    <MDBBtn
+                      color="blue"
+                      type="submit"
+                      onClick={this.handleSubmit}
+                    >
+                      Log in
+                    </MDBBtn>
+                  </div>
+                  <div className="text-center">
+                    Not a member..? <a href="/register">Register</a>
+                  </div>
+                </form>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
     );
   }
 }
 
 export default Login;
-
-
-
 
 // <div class="col-md-5 offset-md-1 mt-md-4 mb-4 white-text">
 
@@ -142,7 +153,8 @@ export default Login;
 
 //         </div>
 
-{/* <div class=" z-depth-1 my-0 px-0">
+{
+  /* <div class=" z-depth-1 my-0 px-0">
       <section class="my-md-5" 
         style= {{backgroundImage: "url(" + background + ")", backgroundSize: "cover", backgroundPosition: "center",height:"100%"}}>
       <div class="rgba-black-strong rounded p-5">
@@ -190,8 +202,5 @@ export default Login;
         </div>
         </div>
       </section>
-      </div> */}
-
-
-
-
+      </div> */
+}

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./Register.css";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-import { Button, Form } from "react-bootstrap";
 import {
   MDBContainer,
   MDBRow,
@@ -10,7 +9,7 @@ import {
   MDBInput,
   MDBBtn,
   MDBCard,
-  MDBCardBody
+  MDBCardBody,
 } from "mdbreact";
 const base_url = require("../../config/keys").base_uri;
 
@@ -23,7 +22,7 @@ class Register extends Component {
       mobile: null,
       username: null,
       password: null,
-      redirect: false
+      redirect: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -37,7 +36,7 @@ class Register extends Component {
   // componentWillUpdate(){}
   // componentDidUpdate(){}
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const reg_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const reg_mobile = /^[0]?[6789]\d{9}$/;
@@ -63,16 +62,16 @@ class Register extends Component {
         username: this.state.username,
         password: this.state.password,
         requests: [],
-        confirmed: []
+        confirmed: [],
       };
       axios
         .post(base_url + "/user/add", data)
-        .then(response => {
+        .then((response) => {
           console.log(response);
           if (response.data === "") {
             alert("Welcome to Travellite !");
             this.setState({
-              redirect: true
+              redirect: true,
             });
           } else if (!response.data.status.localeCompare("0")) {
             alert("username already exists");
@@ -104,7 +103,7 @@ class Register extends Component {
                       validate
                       error="wrong"
                       success="right"
-                      onChange={e => this.setState({ name: e.target.value })}
+                      onChange={(e) => this.setState({ name: e.target.value })}
                     />
                     <MDBInput
                       label="Your email"
@@ -114,7 +113,7 @@ class Register extends Component {
                       validate
                       error="wrong"
                       success="right"
-                      onChange={e => this.setState({ email: e.target.value })}
+                      onChange={(e) => this.setState({ email: e.target.value })}
                     />
                     <MDBInput
                       label="Mobile number"
@@ -124,7 +123,9 @@ class Register extends Component {
                       validate
                       error="wrong"
                       success="right"
-                      onChange={e => this.setState({ mobile: e.target.value })}
+                      onChange={(e) =>
+                        this.setState({ mobile: e.target.value })
+                      }
                     />
 
                     <MDBInput
@@ -135,7 +136,7 @@ class Register extends Component {
                       validate
                       error="wrong"
                       success="right"
-                      onChange={e =>
+                      onChange={(e) =>
                         this.setState({ username: e.target.value })
                       }
                     />
@@ -145,7 +146,7 @@ class Register extends Component {
                       group
                       type="password"
                       validate
-                      onChange={e =>
+                      onChange={(e) =>
                         this.setState({ password: e.target.value })
                       }
                     />

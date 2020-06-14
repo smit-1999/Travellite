@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navigation_bar from "./Components/Navigation_bar";
-import { BrowserRouter, Switch, Router, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
 import SearchPage from "./Components/SearchPage";
 import Login from "./Components/Login";
@@ -10,7 +9,6 @@ import HomePage from "./Components/HomePage";
 import Profile from "./Components/Profile";
 import Account from "./Components/Account";
 import AboutPage from "./Components/AboutUsPage";
-import { Navbar } from "reactstrap";
 import AddPost from "./Components/AddPost/AddPost";
 import Dashboard from "./Components/Dashboard";
 class App extends Component {

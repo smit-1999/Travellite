@@ -4,7 +4,6 @@ import {
   MDBNavbarBrand,
   MDBNavbarNav,
   MDBNavItem,
-  MDBNavLink,
   MDBNavbarToggler,
   MDBCollapse,
   MDBDropdown,
@@ -12,15 +11,11 @@ import {
   MDBDropdownMenu,
   MDBDropdownItem,
   MDBIcon,
-  MDBPopover,
-  MDBPopoverHeader,
-  MDBPopoverBody,
   MDBBtn,
 } from "mdbreact";
 
-import { Button, Jumbotron, ListGroup } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import axios from "axios";
-import { BrowserRouter as Router } from "react-router-dom";
 import "../Navigation_bar/Navigation_bar.css";
 // import ReactDOM from "react-dom";
 // import { Link } from "react-router-dom";
@@ -28,23 +23,7 @@ import "../Navigation_bar/Navigation_bar.css";
 // import profile from "../Profile/Profile";
 // import account from "../Account/Account";
 // import login from "../Login/Login";
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  // NavItem,
-  // NavLink,
-  // UncontrolledDropdown,
-  // DropdownToggle,
-  // DropdownMenu,
-  // DropdownItem,
-  // NavbarText,
-  Container,
-} from "reactstrap";
-import { Dropdown } from "react-bootstrap";
-import { DropdownDivider } from "react-bootstrap/Dropdown";
+
 const bell = require("../../images/bell-png-5.png");
 const base_url = require("../../config/keys").base_uri;
 
@@ -155,7 +134,6 @@ class Navigation_bar extends Component {
   };
   render() {
     const notifs = this.state.notifs;
-    const user = this.state.username;
     return (
       <div>
         <MDBNavbar color="black" dark expand="md">

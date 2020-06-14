@@ -7,7 +7,6 @@ import {
   MDBBtn,
   MDBIcon,
 } from "mdbreact";
-import { Redirect } from "react-router-dom";
 import "./HomePage.css";
 const taxi = require("../../images/taxi2.jpg");
 class HomePage extends Component {

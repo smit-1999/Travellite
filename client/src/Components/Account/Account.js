@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./Account.css";
-import Table from "react-bootstrap/Table";
 import Navigation_bar from "../Navigation_bar";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import { ListGroup } from "react-bootstrap";
 const base_url = require("../../config/keys").base_uri;
 
 class Account extends Component {
@@ -38,7 +36,6 @@ class Account extends Component {
       name: this.state.userName,
       type: 1,
     };
-    var res1 = "";
 
     axios
       .get(base_url + "/user/prevRides", { params })
@@ -57,7 +54,6 @@ class Account extends Component {
       name: this.state.userName,
       type: 2,
     };
-    var res2 = "";
 
     axios
       .get(base_url + "/user/prevRides", { params })
@@ -95,14 +91,7 @@ class Account extends Component {
             {/* <ListGroup> */}
 
             {this.state.myPosts.map((post) => {
-              const {
-                _id,
-                sourceLocation,
-                destinationLocation,
-                isFilled,
-                date,
-                postOwner,
-              } = post;
+              const { sourceLocation, destinationLocation, date } = post;
 
               return (
                 <Jumbotron>
@@ -140,10 +129,8 @@ class Account extends Component {
             {/* <ListGroup> */}
             {this.state.myRides.map((post) => {
               const {
-                _id,
                 sourceLocation,
                 destinationLocation,
-                isFilled,
                 date,
                 postOwner,
               } = post;
