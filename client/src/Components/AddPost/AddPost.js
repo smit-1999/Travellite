@@ -70,7 +70,7 @@ class AddPost extends Component {
   render() {
     const loggedIn = localStorage.getItem("loggedIn");
     if (loggedIn.localeCompare("false") === 0) {
-      return <Redirect to="/Login" />;
+      return <Redirect to="/login" />;
     }
     return (
       <div>

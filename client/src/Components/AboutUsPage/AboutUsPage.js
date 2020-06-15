@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './AboutUsPage.css';
+import { Redirect } from "react-router-dom";
 import Navigation_bar from "../Navigation_bar";
 const smit = require("../../images/smit.jpg");
 const shikhar = require("../../images/shikhar.jpg");
@@ -21,6 +22,10 @@ class AboutUsPage extends Component {
   // componentDidUpdate(){}
 
   render() {
+    const loggedIn = localStorage.getItem("loggedIn");
+    if (loggedIn.localeCompare("false") === 0) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div>
       <Navigation_bar/>
