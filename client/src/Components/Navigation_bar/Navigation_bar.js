@@ -15,6 +15,7 @@ import {
 } from "mdbreact";
 
 import { ListGroup } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "../Navigation_bar/Navigation_bar.css";
 // import ReactDOM from "react-dom";
@@ -121,6 +122,11 @@ class Navigation_bar extends Component {
     });
     console.log("heelo");
   }
+  checkAdmin(){
+    if (this.state.username == "admin") {
+      return (<MDBDropdownItem href="/Dashboard">DashBoard</MDBDropdownItem>) 
+    }
+  }
 
   toggleLogin = () => {
     localStorage.setItem("loggedIn", false);
@@ -133,6 +139,7 @@ class Navigation_bar extends Component {
     });
   };
   render() {
+    
     const notifs = this.state.notifs;
     return (
       <div>
@@ -208,6 +215,8 @@ class Navigation_bar extends Component {
                   <MDBDropdownMenu className="dropdown-default">
                     <MDBDropdownItem href="/profile">Profile</MDBDropdownItem>
                     <MDBDropdownItem href="/account">Account</MDBDropdownItem>
+                      <div>{ this.checkAdmin()}</div>
+                    
                     <MDBDropdownItem href="/login" onClick={this.toggleLogin}>
                       Logout
                     </MDBDropdownItem>

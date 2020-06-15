@@ -10,6 +10,7 @@ import {
   MDBBadge,
   MDBIcon,
 } from "mdbreact";
+import { Redirect } from "react-router-dom";
 import { Bar, Pie } from "react-chartjs-2";
 import axios from "axios";
 import Navigation_bar from "../Navigation_bar";
@@ -208,6 +209,13 @@ class Dashboard extends Component {
   };
 
   render() {
+    const loggedIn = localStorage.getItem("loggedIn");
+    if (loggedIn.localeCompare("false") === 0) {
+      return <Redirect to="/login" />;
+    }
+    if( localStorage.getItem("user").localeCompare("admin")){
+      return <Redirect to ="/search"/>
+    }
     const barChartOptions = {
       responsive: true,
       maintainAspectRatio: true,
