@@ -81,8 +81,8 @@ class Login extends Component {
       return <Redirect to="/search" />;
     }
     return (
-      <MDBContainer className="mt-5">
-        <MDBRow>
+      <MDBContainer className="mt-5" center>
+        <MDBRow center>
           <MDBCol md="6">
             <MDBCard>
               <MDBCardBody>

@@ -197,7 +197,9 @@ class SearchPage extends Component {
             </MDBCol>
           </MDBRow>
         </MDBContainer>
-        <ListGroup>
+
+        <div class="container ">
+          {/* <ListGroup> */}
           {posts.map((post) => {
             const {
               _id,
@@ -209,30 +211,47 @@ class SearchPage extends Component {
             } = post;
             // console.log(_id, sourceLocation, destinationLocation);
             return (
-              <ListGroup.Item key={_id}>
-                <h2>{sourceLocation}</h2>
-                <h3> {_id} </h3>
-                <p>{destinationLocation}</p>
-                <p>{isFilled}</p>
-                <p>{date}</p>
-                <p>{postOwner}</p>
-                <hr />
+              // <ListGroup.Item key={_id}>
+              <Jumbotron>
+                <div class="col">
+                  <h3>Cab Leader : {postOwner}</h3>
+                </div>
 
-                <Button
-                  className="submit"
-                  onClick={() => this.requestGroup(_id, postOwner)}
-                  // disabled={this.state.disabled}
-                  variant="primary"
-                >
-                  Request
-                  {/* {this.state.disabled ? "Requested" : "Request"} */}
-                </Button>
+                <div class="col">
+                  <h6>Source : {sourceLocation}</h6>
+                </div>
+
+                <div class="col">
+                  <h6>Destination : {destinationLocation}</h6>
+                </div>
+
+                <div class="col">
+                  <h6>Filled : {isFilled}</h6>
+                </div>
+
+                <div class="col">
+                  <h6>Date : {date}</h6>
+                </div>
 
                 <hr />
-              </ListGroup.Item>
+                <div align="center">
+                  <Button
+                    className="submit"
+                    onClick={() => this.requestGroup(_id, postOwner)}
+                    // disabled={this.state.disabled}
+                    variant="primary"
+                    align="center"
+                  >
+                    Request
+                    {/* {this.state.disabled ? "Requested" : "Request"} */}
+                  </Button>
+                </div>
+                <hr />
+              </Jumbotron>
             );
           })}
-        </ListGroup>
+        </div>
+
         <AddPost />
       </div>
     );
