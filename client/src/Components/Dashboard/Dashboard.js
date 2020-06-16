@@ -1,43 +1,19 @@
-import React, { Component } from "react";
+import axios from "axios";
 import {
-  MDBCol,
+  MDBBadge,
   MDBCard,
   MDBCardBody,
   MDBCardHeader,
-  MDBRow,
+  MDBCol,
+  MDBIcon,
   MDBListGroup,
   MDBListGroupItem,
-  MDBBadge,
-  MDBIcon,
+  MDBRow,
 } from "mdbreact";
-import { Redirect } from "react-router-dom";
+import React, { Component } from "react";
 import { Bar, Pie } from "react-chartjs-2";
-import axios from "axios";
-import Navigation_bar from "../Navigation_bar";
-{
-  /* <form>
-<div>
-    <Button onClick = {() => {  
-        axios
-            .get(base_url + "/post")
-            .then(function(response) {
-                console.log(response.data[0].postOwner);
-            })
-            .catch(function(error) {
-                console.log(error);
-            });              
-        }}
-    >
-    Refresh Statistics
-    </Button>
-</div>
-</form> */
-}
 var randomColor = require("randomcolor");
 const base_url = require("../../config/keys").base_uri;
-// const list1 = [];
-// const dataBarlist = [];
-// const list2 = [];
 const backgroundColorlist = [];
 class Dashboard extends Component {
   constructor(props) {
@@ -45,7 +21,6 @@ class Dashboard extends Component {
     this.state = {
       postOwner: "",
       members: [""],
-      // sourceLocation: { value: null, label: "Enter Start Location" },
       sourceLocation: null,
       destinationLocation: null,
       date: "",
@@ -59,6 +34,7 @@ class Dashboard extends Component {
       num_notifs: 0,
       cab_group_empty: 0,
       cab_group_filled: 0,
+      num_posts: 0,
       list1: [],
       list2: [],
       dataBarlist: [],
@@ -72,9 +48,10 @@ class Dashboard extends Component {
       .then((response) => {
         const list_temp = [];
         const list_temp2 = [];
+        const list_temp3 = [];
         const list_temp4 = [];
+        const list_temp5 = [];
         const people_list = [];
-        //this.setState({ list1: response.data });
         console.log(response.data);
         response.data.forEach((date) => {
           list_temp.push(date);
@@ -96,19 +73,17 @@ class Dashboard extends Component {
           }
         });
         const n = response.data.length;
+        this.setState({
+          num_posts: n,
+        });
         const s1 = this.state.cab_group_filled;
         this.setState({
           cab_group_empty: n - s1,
         });
         console.log(list_temp2);
-        //console.log(this.state.cab_group_filled)
         list_temp.forEach(({ date }) => {
           list_temp2.push(date);
         });
-        //console.log(response.data);
-        //console.log("qwe");
-        //console.log(this.state.list1);
-        //console.log(list_temp2);
         const list5 = new Set(list_temp2);
         const array = [...list5];
         const month_list = [];
@@ -137,20 +112,23 @@ class Dashboard extends Component {
             const s = one_map.get(month_list[i]);
             one_map.set(month_list[i], s + 1);
           }
-          if (people_list[i] === 2) {
+          if (people_list[i] == 2) {
             const s = two_map.get(month_list[i]);
             two_map.set(month_list[i], s + 1);
           }
-          if (people_list[i] === 3) {
+          if (people_list[i] == 3) {
             const s = three_map.get(month_list[i]);
             three_map.set(month_list[i], s + 1);
           }
-          if (people_list[i] === 4) {
+          if (people_list[i] == 4) {
             const s = four_map.get(month_list[i]);
             four_map.set(month_list[i], s + 1);
           }
-          console.log(people_list[i], month_list[i]);
+          console.log(people_list[i], month_list[i], "good");
         }
+        console.log(one_map);
+        console.log(two_map);
+        console.log(three_map);
         console.log(four_map);
         console.log(month_list + "monthlist");
         this.setState({
@@ -170,13 +148,10 @@ class Dashboard extends Component {
         });
         console.log(this.state.list1 + ":list1");
         const m = new Map();
-        array.forEach((num) => {
+        array.map((num) => {
           m.set(num, 0);
         });
-        // array.forEach(()=>{
-        //     list_temp3.push(0);
-        // });
-        list_temp2.forEach((num) => {
+        list_temp2.map((num) => {
           m.set(num, m.get(num) + 1);
         });
         const a1 = [...m.values()];
@@ -188,7 +163,7 @@ class Dashboard extends Component {
         });
         console.log(this.state.list1);
         console.log(this.state.list2);
-        array.forEach(() => {
+        array.map(() => {
           var color = randomColor();
           list_temp4.push(color);
         });
@@ -209,13 +184,6 @@ class Dashboard extends Component {
   };
 
   render() {
-    const loggedIn = localStorage.getItem("loggedIn");
-    if (loggedIn.localeCompare("false") === 0) {
-      return <Redirect to="/login" />;
-    }
-    if( localStorage.getItem("user").localeCompare("admin")){
-      return <Redirect to ="/search"/>
-    }
     const barChartOptions = {
       responsive: true,
       maintainAspectRatio: true,
@@ -251,7 +219,6 @@ class Dashboard extends Component {
         },
       ],
     };
-
     const dataBar = {
       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
       datasets: [
@@ -281,109 +248,63 @@ class Dashboard extends Component {
         },
       ],
     };
-    // <ListGroup>
-    //     {notifs.map((notif) => {
-    //         const { requester, _id } = notif;
-    //         console.log(_id);
-    //         return (
-    //         <ListGroup.Item key={_id}>
-    //             <p className="p">
-    //             {requester} has requested to join with you in a
-    //             ride
-    //             </p>
-    //             <hr />
-    //             <MDBBtn color="blue" className="notifButton">
-    //             <i class="fas fa-check"></i>
-    //             </MDBBtn>
-    //             <MDBBtn color="red" className="notifButton">
-    //             <i class="fas fa-times"></i>
-    //             </MDBBtn>
-    //         </ListGroup.Item>
-    //         );
-    //     })}
-    // </ListGroup>
     return (
-      <div>
-        <Navigation_bar />
-        <MDBRow className="mb-4">
-          <MDBCol md="8" className="mb-4">
-            <button onClick={this.fillState}>REFRESH</button>
-            <MDBCard className="mb-4">
-              <MDBCardBody>
-                <Bar data={dataBar} height={270} options={barChartOptions} />
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-          <MDBCol md="4" className="mb-4">
-            <MDBCard className="mb-4">
-              <MDBCardHeader>
-                Number of Posts on a Particular Date
-              </MDBCardHeader>
-              <MDBCardBody>
-                <Pie
-                  data={dataPie}
-                  height={300}
-                  options={{ responsive: true }}
-                />
-              </MDBCardBody>
-            </MDBCard>
-            <MDBCard className="mb-4">
-              <MDBCardBody>
-                <MDBListGroup className="list-group-flush">
-                  <MDBListGroupItem>
-                    Sales
-                    <MDBBadge
-                      color="success-color"
-                      pill
-                      className="float-right"
-                    >
-                      22%
-                      <MDBIcon icon="arrow-up" className="ml-1" />
-                    </MDBBadge>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem>
-                    Number of posts
-                    <MDBBadge color="danger-color" pill className="float-right">
-                      5%
-                      <MDBIcon icon="arrow-down" className="ml-1" />
-                    </MDBBadge>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem>
-                    Number of notifications sent
-                    <MDBBadge
-                      color="primary-color"
-                      pill
-                      className="float-right"
-                    >
-                      {this.state.num_notifs}
-                    </MDBBadge>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem>
-                    Number of cab groups empty
-                    <MDBBadge
-                      color="primary-color"
-                      pill
-                      className="float-right"
-                    >
-                      {this.state.cab_group_empty}
-                    </MDBBadge>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem>
-                    Number of cab groups filled
-                    <MDBBadge
-                      color="primary-color"
-                      pill
-                      className="float-right"
-                    >
-                      {this.state.cab_group_filled}
-                    </MDBBadge>
-                  </MDBListGroupItem>
-                </MDBListGroup>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </div>
+      <MDBRow className="mb-4">
+        <MDBCol md="8" className="mb-4">
+          <button onClick={this.fillState}>REFRESH</button>
+          <MDBCard className="mb-4">
+            <MDBCardBody>
+              <Bar data={dataBar} height={270} options={barChartOptions} />
+            </MDBCardBody>
+          </MDBCard>
+        </MDBCol>
+        <MDBCol md="4" className="mb-4">
+          <MDBCard className="mb-4">
+            <MDBCardHeader>Number of Posts on a Particular Date</MDBCardHeader>
+            <MDBCardBody>
+              <Pie data={dataPie} height={300} options={{ responsive: true }} />
+            </MDBCardBody>
+          </MDBCard>
+          <MDBCard className="mb-4">
+            <MDBCardBody>
+              <MDBListGroup className="list-group-flush">
+                {/* <MDBListGroupItem>
+                                    Sales
+                                    <MDBBadge color="success-color" pill className="float-right">
+                                        22%
+                                        <MDBIcon icon="arrow-up" className="ml-1"/>
+                                    </MDBBadge>
+                                </MDBListGroupItem> */}
+                <MDBListGroupItem>
+                  Number of posts
+                  <MDBBadge color="primary-color" pill className="float-right">
+                    {this.state.num_posts}
+                    {/* <MDBIcon icon="arrow-down" className="ml-1"/> */}
+                  </MDBBadge>
+                </MDBListGroupItem>
+                <MDBListGroupItem>
+                  Number of notifications sent
+                  <MDBBadge color="primary-color" pill className="float-right">
+                    {this.state.num_notifs}
+                  </MDBBadge>
+                </MDBListGroupItem>
+                <MDBListGroupItem>
+                  Number of cab groups empty
+                  <MDBBadge color="primary-color" pill className="float-right">
+                    {this.state.cab_group_empty}
+                  </MDBBadge>
+                </MDBListGroupItem>
+                <MDBListGroupItem>
+                  Number of cab groups filled
+                  <MDBBadge color="primary-color" pill className="float-right">
+                    {this.state.cab_group_filled}
+                  </MDBBadge>
+                </MDBListGroupItem>
+              </MDBListGroup>
+            </MDBCardBody>
+          </MDBCard>
+        </MDBCol>
+      </MDBRow>
     );
   }
 }
